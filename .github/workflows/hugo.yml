@@ -22,12 +22,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.128.0 # 保持默认即可，GitHub 会自动下载
+      HUGO_VERSION: 0.128.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive # 如果使用了 PaperMod 等子模块主题，这行至关重要
+          submodules: recursive
           fetch-depth: 0
 
       - name: Setup Pages
@@ -38,7 +38,7 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env:HUGO_VERSION }}
-          extended: true # 开启 extended 版本，PaperMod 主题通常需要它
+          extended: true
 
       - name: Build with Hugo
         env:
@@ -49,9 +49,6 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps:pages.outputs.base_url }}/"
-
-         # 显式创建 public 目录，防止空仓库报错
-          mkdir -p ./public
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
