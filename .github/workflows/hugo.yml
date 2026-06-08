@@ -37,7 +37,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: ${{ env:HUGO_VERSION }}
+          hugo-version: ${{ env.HUGO_VERSION }} # 修复：冒号改成了点
           extended: true
 
       - name: Build with Hugo
@@ -48,7 +48,7 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "${{ steps:pages.outputs.base_url }}/"
+            --baseURL "${{ steps.pages.outputs.base_url }}/" # 修复：冒号改成了点
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -58,7 +58,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps:deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }} # 修复：冒号改成了点
     runs-on: ubuntu-latest
     needs: build
     steps:
