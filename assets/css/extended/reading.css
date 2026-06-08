@@ -1,0 +1,84 @@
+/* 阅读档案页面 - 学术风格表格 */
+.post-content.md-content {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+.post-content.md-content table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.post-content.md-content th,
+.post-content.md-content td {
+    padding: 12px 16px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+}
+
+.post-content.md-content th {
+    background-color: var(--tertiary);
+    color: var(--primary);
+    font-weight: 600;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    padding: 14px 16px;
+}
+
+.post-content.md-content td {
+    min-width: 80px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    background-color: var(--entry);
+}
+
+.post-content.md-content tbody tr:nth-child(even) td {
+    background-color: rgba(128, 128, 128, 0.04);
+}
+
+.post-content.md-content tbody tr:hover td {
+    background-color: rgba(128, 128, 128, 0.08);
+}
+
+/* 列宽优化 */
+.post-content.md-content th:nth-child(1),
+.post-content.md-content td:nth-child(1) {
+    min-width: 120px;
+    font-weight: 600;
+}
+
+.post-content.md-content td:nth-child(1) a {
+    color: #5b9bd5;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.post-content.md-content td:nth-child(1) a:hover {
+    color: #3a7cc3;
+    text-decoration: underline;
+}
+
+.post-content.md-content th:nth-child(4),
+.post-content.md-content td:nth-child(4) {
+    min-width: 200px;
+}
+
+.post-content.md-content th:nth-child(5),
+.post-content.md-content td:nth-child(5) {
+    min-width: 120px;
+}
+
+@media (max-width: 680px) {
+    .post-content.md-content table {
+        font-size: 0.85rem;
+    }
+    .post-content.md-content th,
+    .post-content.md-content td {
+        padding: 10px 12px;
+    }
+}
