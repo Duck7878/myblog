@@ -2,17 +2,89 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>读书笔记 on Duck Blog</title>
-    <link>//localhost:51344/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+    <link>//localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
     <description>Recent content in 读书笔记 on Duck Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 24 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:51344/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《如何变得有思想》读书笔记</title>
+      <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;p&gt;作者： 阮一峰，中国知名 IT 技术专家、作家和翻译者。毕业于上海财经大学，曾在复旦大学任教，后转向技术与写作领域。他以&lt;strong&gt;技术博客&lt;/strong&gt;闻名，长期撰写和翻译编程、前端开发、互联网趋势等文章，是国内最早一批推广开源文化和现代技术理念的人之一。代表译作有《黑客与画家》《未来世界的幸存者》等，原创著作包括《未来世界的幸存者》《如何变得有思想》。他的写作风格清晰易懂，兼具思想深度和人文关怀。&lt;/p&gt;
+&lt;h1 id=&#34;摘录&#34;&gt;摘录：&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;我有150多个雇员。他们只是要求工作，并获得报酬。他们把一生中最好的年华用来为钱而工作,却不愿去弄明白工作到底是为了什么。大多数人期望得到一份稳定的工作。为了寻求稳定，他们会去学习某种专业，或做生意，拼命为钱而工作，大多数人成了钱的奴隶，然后把怒气对准他们的老板。依我看，真正的资产可以分为下列几类：&lt;/p&gt;
+&lt;p&gt;1）不需我到场就可以正常运作的业务。我拥有它们，但由别人经营和管理。如果我必须在那儿工作，那它就不是我的事业而是我的职业了；&lt;/p&gt;
+&lt;p&gt;2）股票；&lt;/p&gt;
+&lt;p&gt;3）债券；&lt;/p&gt;
+&lt;p&gt;4）共同基金；&lt;/p&gt;
+&lt;p&gt;5）产生收入的房地产；&lt;/p&gt;
+&lt;p&gt;6）票据（借据）；&lt;/p&gt;
+&lt;p&gt;7）专利权如音乐、手稿、专利；&lt;/p&gt;
+&lt;p&gt;8）任何其他有价值、可产生收入或可能增值并且有很好的流通市场的东西。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要想真正取得成功，你必须懂三种语言：流利的英语，一门外国语和电脑语言。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;网络组织是社会行动的有力工具，有心改变世界的人开始在本地做起，志同道合的人自然而然地聚集在一起。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当一个人追求财务自由的时候，他其实不是在&amp;quot;追求自由&amp;quot;，而是在&amp;quot;追求个人利益&amp;quot;，也就是&amp;quot;追求自我&amp;quot;。所有追求个人自由的行为，多多少少，都可以被看作在追求个人利益，这其实不配叫做&amp;quot;追求自由&amp;quot;，本质上只是一种动物本能，没有什么了不起的。只有为他人争取自由的行为，才能被叫做&amp;quot;争取自由&amp;quot;，就像马克思说的&amp;quot;每一个人的自由发展是一切人的自由发展的条件&amp;quot;。搞清了这一点，我感到豁然开朗。&amp;ldquo;自由&amp;quot;是一个高贵的字眼，但只有在脱离个人利益的时候，&amp;ldquo;不自由，毋宁死&amp;quot;这句话才有了真正的涵义。那些追求个人利益的人生，表面上可能会实现自由，但实际上只是把自己禁锢起来，因为如果其他人都不自由，你一个人怎么可能有真正的自由呢？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;只有所有人都有人身自由，你才会有人身自由；只有所有人都有言论自由，你才会有言论自由；只有所有人都不会因为民族、种族、性别、宗教信仰、年龄、身体残疾等原因遭受歧视时，你才不会遭受歧视。所以，从这个意义上说，只有争取他人的自由，争取所有人的自由，才会有你自己的自由。你为他人呐喊，就是在为你自己呐喊；他人的自由被剥夺时，就是你的自由在被剥夺；如果你保持沉默，那么当有一天你遭受到歧视和迫害时，也不会有人来为你呐喊。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;波许教授的第一个人生经验就是：你必须要有一些真本领，这样可以让你更受欢迎。（Have something to bring to the table, because that will make you more welcome.）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;你必须练好基本功，否则后面的事情都不会发生。（You&amp;rsquo;ve got to get the fundamentals down because otherwise the fancy stuff isn&amp;rsquo;t going to work.）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;你总会遇到挫折。但是记住，它们的出现不是没有原因的。砖墙并不是为了挡住我们。它在那里，只是为了测试，我们的决心到底有多迫切。它在那里挡住了那些没有强烈决心的人。它不让那些人通过。记住，砖墙的存在是为了显示我们自己付出的决心。它使得我们，同那些并不真的想实现梦想的人得以区分。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;有些人认为，长音节的表达方式，会显得比较恭敬和优雅；短音节的表达方式，反而显得粗鲁和不文雅。这样想是有害的。要知道，句子越短，就越容易被他人理解。如果你满口都是长音节的名词词组，别人听懂你的意思，就会很费劲。当你遇到危险，你肯定大喊&amp;quot;救命&amp;rdquo;，要是你喊&amp;quot;请做出救我的动作&amp;rdquo;，你不死才怪呢。同理，如果你想写出受欢迎的文章，一个窍门就是尽量不要使用长句。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;追溯源头，这种有害的表达方式，其实来自于英语。长期以来，英语中就流行把动词变成名词词组，比如decide（决定）是一个动词，但是英国人更喜欢使用make a decision（做出决定）这个词组。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内华达自然条件恶劣、经济资源稀缺，但是依然能够成功地发展经济，2007年人均收入排在美国50个州的第16位，不能不说是一个奇迹。它的成功说明了两点：&lt;/p&gt;
+&lt;p&gt;（1）竞争优势完全可以通过人为努力，后天创造出来。&lt;/p&gt;
+&lt;p&gt;（2）制度本身就是一种竞争优势，法律则是市场竞争的工具，可以创造GDP增长。只要更自由，就会有人来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我们从小就被送入一个专事改造的机构&amp;mdash;-学校，里面充满了过时的机制，大部分人在学校里学到的，就是对学习感到厌倦。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2005年，乔布斯在斯坦福大学毕业典礼上，曾经说过：&amp;ldquo;我深信，保持前进的唯一动力，就是我热爱自己所做的事。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我读到了《罗素自传》，序言就叫做《我为何而活》。我发现，罗素的总结非常好，以后如果有人问我这个问题，我就让他去读这篇文章。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;罗素说，人活着有三个理由。第一个理由是&amp;quot;追求爱情&amp;rdquo;（longing for love）。因为爱情会带来&amp;quot;狂喜&amp;quot;（ecstasy），这是其他任何经历都做不到的；爱情能减轻孤独，让你对生活不再那么恐惧；爱情能创造最美好的人类生活，仿佛天堂的缩影。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二个理由是&amp;quot;追求知识&amp;quot;（search for knowledge）。因为知识能让我们理解人的内心，理解自然界，满足我们与生俱来的好奇心。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三个理由是&amp;quot;同情心&amp;quot;（pity for the suffering）。当你看到他人受苦、看到饥饿的孩子、看到被压迫的人民、看到被虐待的老人，看到人类的孤独、贫穷、痛苦，你的内心都会难以平静。我们活着，就是为了减轻一些这种苦难，不仅为了帮助他人，还因为我们自己也是这种苦难的受害者。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在葬礼上，一个核心环节就是烧纸钱，给死人送去资产。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>《巴比伦最富有的人》读书笔记</title>
-      <link>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <guid>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;p&gt;创建：2026-02-24 17:50:46&lt;/p&gt;
 &lt;h2 id=&#34;摘录&#34;&gt;摘录：&lt;/h2&gt;
 &lt;ol&gt;

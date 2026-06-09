@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>杭州 on Duck Blog</title>
-    <link>//localhost:51344/tags/%E6%9D%AD%E5%B7%9E/</link>
+    <link>//localhost:1313/tags/%E6%9D%AD%E5%B7%9E/</link>
     <description>Recent content in 杭州 on Duck Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:51344/tags/%E6%9D%AD%E5%B7%9E/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/tags/%E6%9D%AD%E5%B7%9E/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>杭州西湖一日游</title>
-      <link>//localhost:51344/%E6%B8%B8%E8%AE%B0/%E6%9D%AD%E5%B7%9E%E8%A5%BF%E6%B9%96%E4%B8%80%E6%97%A5%E6%B8%B8/</link>
+      <link>//localhost:1313/%E6%B8%B8%E8%AE%B0/%E6%9D%AD%E5%B7%9E%E8%A5%BF%E6%B9%96%E4%B8%80%E6%97%A5%E6%B8%B8/</link>
       <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
-      <guid>//localhost:51344/%E6%B8%B8%E8%AE%B0/%E6%9D%AD%E5%B7%9E%E8%A5%BF%E6%B9%96%E4%B8%80%E6%97%A5%E6%B8%B8/</guid>
+      <guid>//localhost:1313/%E6%B8%B8%E8%AE%B0/%E6%9D%AD%E5%B7%9E%E8%A5%BF%E6%B9%96%E4%B8%80%E6%97%A5%E6%B8%B8/</guid>
       <description>春日漫步西湖，感受江南水乡的诗意与宁静</description>
     </item>
   </channel>
