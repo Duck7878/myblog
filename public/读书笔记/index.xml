@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>读书笔记 on Duck Blog</title>
-    <link>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+    <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
     <description>Recent content in 读书笔记 on Duck Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 24 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《如何变得有思想》读书笔记</title>
-      <link>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <guid>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;p&gt;作者： 阮一峰，中国知名 IT 技术专家、作家和翻译者。毕业于上海财经大学，曾在复旦大学任教，后转向技术与写作领域。他以&lt;strong&gt;技术博客&lt;/strong&gt;闻名，长期撰写和翻译编程、前端开发、互联网趋势等文章，是国内最早一批推广开源文化和现代技术理念的人之一。代表译作有《黑客与画家》《未来世界的幸存者》等，原创著作包括《未来世界的幸存者》《如何变得有思想》。他的写作风格清晰易懂，兼具思想深度和人文关怀。&lt;/p&gt;
 &lt;h1 id=&#34;摘录&#34;&gt;摘录：&lt;/h1&gt;
 &lt;ol&gt;
@@ -82,9 +82,9 @@
     </item>
     <item>
       <title>《巴比伦最富有的人》读书笔记</title>
-      <link>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <guid>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;p&gt;创建：2026-02-24 17:50:46&lt;/p&gt;
 &lt;h2 id=&#34;摘录&#34;&gt;摘录：&lt;/h2&gt;
 &lt;ol&gt;
