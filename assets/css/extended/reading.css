@@ -221,3 +221,20 @@ code, pre, kbd, samp {
     font-style: normal;
     color: var(--secondary);
 }
+
+/* ========================================
+   全局背景色覆盖为纯白
+   ======================================== */
+/* 覆盖列表页（首页、section列表、分类标签页等）的 off-white 背景为纯白 */
+.list {
+    background: var(--theme);
+}
+
+/* 确保 body / html 背景也是纯白 */
+html {
+    background: var(--theme);
+}
+
+body {
+    background: var(--theme);
+}

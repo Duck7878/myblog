@@ -2,17 +2,96 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Duck Blog</title>
-    <link>//localhost:1313/</link>
+    <link>//localhost:51344/</link>
     <description>Recent content on Duck Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 24 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:51344/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>杭州西湖一日游</title>
+      <link>//localhost:51344/%E6%B8%B8%E8%AE%B0/%E6%9D%AD%E5%B7%9E%E8%A5%BF%E6%B9%96%E4%B8%80%E6%97%A5%E6%B8%B8/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>//localhost:51344/%E6%B8%B8%E8%AE%B0/%E6%9D%AD%E5%B7%9E%E8%A5%BF%E6%B9%96%E4%B8%80%E6%97%A5%E6%B8%B8/</guid>
+      <description>春日漫步西湖，感受江南水乡的诗意与宁静</description>
+    </item>
+    <item>
+      <title>《如何变得有思想》读书笔记</title>
+      <link>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E6%9C%89%E6%80%9D%E6%83%B3%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;p&gt;作者： 阮一峰，中国知名 IT 技术专家、作家和翻译者。毕业于上海财经大学，曾在复旦大学任教，后转向技术与写作领域。他以&lt;strong&gt;技术博客&lt;/strong&gt;闻名，长期撰写和翻译编程、前端开发、互联网趋势等文章，是国内最早一批推广开源文化和现代技术理念的人之一。代表译作有《黑客与画家》《未来世界的幸存者》等，原创著作包括《未来世界的幸存者》《如何变得有思想》。他的写作风格清晰易懂，兼具思想深度和人文关怀。&lt;/p&gt;
+&lt;h1 id=&#34;摘录&#34;&gt;摘录：&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;我有150多个雇员。他们只是要求工作，并获得报酬。他们把一生中最好的年华用来为钱而工作,却不愿去弄明白工作到底是为了什么。大多数人期望得到一份稳定的工作。为了寻求稳定，他们会去学习某种专业，或做生意，拼命为钱而工作，大多数人成了钱的奴隶，然后把怒气对准他们的老板。依我看，真正的资产可以分为下列几类：&lt;/p&gt;
+&lt;p&gt;1）不需我到场就可以正常运作的业务。我拥有它们，但由别人经营和管理。如果我必须在那儿工作，那它就不是我的事业而是我的职业了；&lt;/p&gt;
+&lt;p&gt;2）股票；&lt;/p&gt;
+&lt;p&gt;3）债券；&lt;/p&gt;
+&lt;p&gt;4）共同基金；&lt;/p&gt;
+&lt;p&gt;5）产生收入的房地产；&lt;/p&gt;
+&lt;p&gt;6）票据（借据）；&lt;/p&gt;
+&lt;p&gt;7）专利权如音乐、手稿、专利；&lt;/p&gt;
+&lt;p&gt;8）任何其他有价值、可产生收入或可能增值并且有很好的流通市场的东西。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要想真正取得成功，你必须懂三种语言：流利的英语，一门外国语和电脑语言。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;网络组织是社会行动的有力工具，有心改变世界的人开始在本地做起，志同道合的人自然而然地聚集在一起。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当一个人追求财务自由的时候，他其实不是在&amp;quot;追求自由&amp;quot;，而是在&amp;quot;追求个人利益&amp;quot;，也就是&amp;quot;追求自我&amp;quot;。所有追求个人自由的行为，多多少少，都可以被看作在追求个人利益，这其实不配叫做&amp;quot;追求自由&amp;quot;，本质上只是一种动物本能，没有什么了不起的。只有为他人争取自由的行为，才能被叫做&amp;quot;争取自由&amp;quot;，就像马克思说的&amp;quot;每一个人的自由发展是一切人的自由发展的条件&amp;quot;。搞清了这一点，我感到豁然开朗。&amp;ldquo;自由&amp;quot;是一个高贵的字眼，但只有在脱离个人利益的时候，&amp;ldquo;不自由，毋宁死&amp;quot;这句话才有了真正的涵义。那些追求个人利益的人生，表面上可能会实现自由，但实际上只是把自己禁锢起来，因为如果其他人都不自由，你一个人怎么可能有真正的自由呢？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;只有所有人都有人身自由，你才会有人身自由；只有所有人都有言论自由，你才会有言论自由；只有所有人都不会因为民族、种族、性别、宗教信仰、年龄、身体残疾等原因遭受歧视时，你才不会遭受歧视。所以，从这个意义上说，只有争取他人的自由，争取所有人的自由，才会有你自己的自由。你为他人呐喊，就是在为你自己呐喊；他人的自由被剥夺时，就是你的自由在被剥夺；如果你保持沉默，那么当有一天你遭受到歧视和迫害时，也不会有人来为你呐喊。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;波许教授的第一个人生经验就是：你必须要有一些真本领，这样可以让你更受欢迎。（Have something to bring to the table, because that will make you more welcome.）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;你必须练好基本功，否则后面的事情都不会发生。（You&amp;rsquo;ve got to get the fundamentals down because otherwise the fancy stuff isn&amp;rsquo;t going to work.）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;你总会遇到挫折。但是记住，它们的出现不是没有原因的。砖墙并不是为了挡住我们。它在那里，只是为了测试，我们的决心到底有多迫切。它在那里挡住了那些没有强烈决心的人。它不让那些人通过。记住，砖墙的存在是为了显示我们自己付出的决心。它使得我们，同那些并不真的想实现梦想的人得以区分。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;有些人认为，长音节的表达方式，会显得比较恭敬和优雅；短音节的表达方式，反而显得粗鲁和不文雅。这样想是有害的。要知道，句子越短，就越容易被他人理解。如果你满口都是长音节的名词词组，别人听懂你的意思，就会很费劲。当你遇到危险，你肯定大喊&amp;quot;救命&amp;rdquo;，要是你喊&amp;quot;请做出救我的动作&amp;rdquo;，你不死才怪呢。同理，如果你想写出受欢迎的文章，一个窍门就是尽量不要使用长句。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;追溯源头，这种有害的表达方式，其实来自于英语。长期以来，英语中就流行把动词变成名词词组，比如decide（决定）是一个动词，但是英国人更喜欢使用make a decision（做出决定）这个词组。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内华达自然条件恶劣、经济资源稀缺，但是依然能够成功地发展经济，2007年人均收入排在美国50个州的第16位，不能不说是一个奇迹。它的成功说明了两点：&lt;/p&gt;
+&lt;p&gt;（1）竞争优势完全可以通过人为努力，后天创造出来。&lt;/p&gt;
+&lt;p&gt;（2）制度本身就是一种竞争优势，法律则是市场竞争的工具，可以创造GDP增长。只要更自由，就会有人来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我们从小就被送入一个专事改造的机构&amp;mdash;-学校，里面充满了过时的机制，大部分人在学校里学到的，就是对学习感到厌倦。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2005年，乔布斯在斯坦福大学毕业典礼上，曾经说过：&amp;ldquo;我深信，保持前进的唯一动力，就是我热爱自己所做的事。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我读到了《罗素自传》，序言就叫做《我为何而活》。我发现，罗素的总结非常好，以后如果有人问我这个问题，我就让他去读这篇文章。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;罗素说，人活着有三个理由。第一个理由是&amp;quot;追求爱情&amp;rdquo;（longing for love）。因为爱情会带来&amp;quot;狂喜&amp;quot;（ecstasy），这是其他任何经历都做不到的；爱情能减轻孤独，让你对生活不再那么恐惧；爱情能创造最美好的人类生活，仿佛天堂的缩影。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二个理由是&amp;quot;追求知识&amp;quot;（search for knowledge）。因为知识能让我们理解人的内心，理解自然界，满足我们与生俱来的好奇心。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三个理由是&amp;quot;同情心&amp;quot;（pity for the suffering）。当你看到他人受苦、看到饥饿的孩子、看到被压迫的人民、看到被虐待的老人，看到人类的孤独、贫穷、痛苦，你的内心都会难以平静。我们活着，就是为了减轻一些这种苦难，不仅为了帮助他人，还因为我们自己也是这种苦难的受害者。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在葬礼上，一个核心环节就是烧纸钱，给死人送去资产。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>《巴比伦最富有的人》读书笔记</title>
-      <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <link>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <guid>//localhost:51344/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;p&gt;创建：2026-02-24 17:50:46&lt;/p&gt;
 &lt;h2 id=&#34;摘录&#34;&gt;摘录：&lt;/h2&gt;
 &lt;ol&gt;
@@ -47,10 +126,298 @@
 &lt;/ol&gt;</description>
     </item>
     <item>
+      <title>生活.旅游.地质公园</title>
+      <link>//localhost:51344/%E6%B8%B8%E8%AE%B0/%E7%94%9F%E6%B4%BB.%E6%97%85%E6%B8%B8.%E5%9C%B0%E8%B4%A8%E5%85%AC%E5%9B%AD/</link>
+      <pubDate>Thu, 15 May 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:51344/%E6%B8%B8%E8%AE%B0/%E7%94%9F%E6%B4%BB.%E6%97%85%E6%B8%B8.%E5%9C%B0%E8%B4%A8%E5%85%AC%E5%9B%AD/</guid>
+      <description>&lt;p&gt;国家地质公园总数达41处居世界首位&lt;/p&gt;
+&lt;p&gt;向公众科普地球科学知识&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;　所谓世界地质公园，是以其地质科学意义、珍奇秀丽和独特的地质景观为主，融合自然景观与人文景观的自然公园，由联合国教科文组织选出。此计划在2000年之后开始推行，目标是选出超过500个值得保存的地质景观加强保护。&lt;/p&gt;
+&lt;p&gt;地质公园的宗旨是保护地质遗迹与生态环境，普及地球科学知识、提高旅游科学文化品位，发展旅游、带动地方经济发展。国家地质公园建设“指南”、世界地质公园试行评分“标准”都详细地作出规定或列出了要求。&lt;/p&gt;
+&lt;p&gt;联合国教育、科学及文化组织世界地质公园网络包含以地质科学意义、珍奇秀丽和独特的地质景观为主，融合自然景观与人文景观的自然公园。此计划的前身为在法国设立的非政府组织“世界地质公园网络”在2004年时初次选出的“世界地质公园”，后在2015年改由联合国教育、科学及文化组织直接选出，其目标是选出超过500个值得保存的地质景观加强保护。&lt;/p&gt;
+&lt;p&gt;截至2022年，全球已选出177个世界地质公园，分布在除南极与大洋洲以外的其余5个大洲的46个国家，其中中华人民共和国以41个位居榜首，另有4个为跨国公园。另外，按照制度规定，登录为世界地质公园后须经过定期审查，若发现不合登录基准，经2年期警告后若仍未改善可从名单中删除。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;中国国家地质公园&#34;&gt;中国国家地质公园&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 张掖世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 湘西世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 敦煌世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阿尔山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 五大连池世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 丹霞山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 石林世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 龙虎山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 庐山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 云台山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 雁荡山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 泰宁世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 克什克腾世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 兴文石海世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 泰山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 雷琼世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 房山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 镜泊湖世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 伏牛山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 自贡世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阿拉善沙漠世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 秦岭终南山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 乐业-凤山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 香港世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 天柱山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 三清山世界地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 延庆世界地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;地区地质公园包括国家地质公园&#34;&gt;地区地质公园（包括国家地质公园）&lt;/h1&gt;
+&lt;h2 id=&#34;华北地区&#34;&gt;华北地区&lt;/h2&gt;
+&lt;h3 id=&#34;北京&#34;&gt;北京&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 石花洞国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 延庆硅化木国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 十渡国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 密云云蒙山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 平谷黄松峪国家地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;天津&#34;&gt;天津&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 蓟县国家地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;河北&#34;&gt;河北&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 涞源白石山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阜平天生桥国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 秦皇岛柳江国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 赞皇嶂石岩国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 涞水野三坡国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 临城国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 武安国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 兴隆国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 迁安国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 承德丹霞地貌地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 邢台峡谷群地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;山西&#34;&gt;山西&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 黄河壶口瀑布国家地质公园（陕西）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 五台山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 壶关峡谷国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 宁武冰洞国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 陵川王莽岭国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大同火山群国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 平顺天脊山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 永和黄河蛇曲国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 榆社古生物化石地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;内蒙古&#34;&gt;内蒙古&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 克什克腾国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阿尔山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阿拉善沙漠国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 二连浩特国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 宁城国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 巴彦淖尔国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 鄂尔多斯地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 清水河老牛湾地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 四子王地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;东北地区&#34;&gt;东北地区&lt;/h2&gt;
+&lt;h3 id=&#34;辽宁&#34;&gt;辽宁&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 朝阳鸟化石国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大连滨海国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 本溪国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大连冰峪沟国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 锦州古生物化石和花岗岩地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 葫芦岛龙潭大峡谷地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;吉林&#34;&gt;吉林&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 靖宇火山矿泉群国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 长白山火山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 乾安泥林国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 抚松地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 四平地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;黑龙江&#34;&gt;黑龙江&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 五大连池火山地貌国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 嘉荫恐龙国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 伊春花岗岩石林国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 镜泊湖国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 兴凯湖国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 伊春小兴安岭国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 凤凰山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 山口地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;华东地区&#34;&gt;华东地区&lt;/h2&gt;
+&lt;h3 id=&#34;上海&#34;&gt;上海&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 崇明岛国家地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;江苏&#34;&gt;江苏&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 苏州太湖西山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 六合国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 江宁汤山方山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 连云港花果山地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;浙江&#34;&gt;浙江&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 常山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 临海国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 雁荡山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 新昌硅化木国家地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;安徽&#34;&gt;安徽&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 黄山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 齐云山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 浮山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 淮南八公山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 祁门牯牛降国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 天柱山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大别山（六安）国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 池州九华山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 凤阳山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 广德太极洞地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 丫山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 灵璧磬云山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 繁昌马仁山地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;福建&#34;&gt;福建&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 漳州滨海火山地貌国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大金湖国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 晋江深沪湾国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 福鼎太姥山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 宁化天鹅洞群国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 德化石牛山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 屏南白水洋国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 永安国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 连城冠豸山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 白云山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 平和灵通山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 政和佛子山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 清流温泉地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 三明郊野地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;江西&#34;&gt;江西&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 庐山第四纪冰川国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 龙虎山丹霞地貌国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 三清山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 武功山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 石城地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;山东&#34;&gt;山东&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 山东山旺国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 枣庄熊耳山国家地质公园（现称“山东枣庄熊耳山－抱犊崮国家地质公园”）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 东营黄河三角洲国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 泰山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 沂蒙山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 长山列岛国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 诸城恐龙国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 青州国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 莱阳白垩纪地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 沂源鲁山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 昌乐火山地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;华南地区&#34;&gt;华南地区&lt;/h2&gt;
+&lt;h3 id=&#34;广东&#34;&gt;广东&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 丹霞山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 湛江湖光岩国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 佛山西樵山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阳春凌宵岩国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 深圳大鹏半岛国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 封开国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 广东恩平地热国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 阳山国家地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;广西&#34;&gt;广西&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 百色乐业大石围天坑群国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 北海涠洲岛火山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 凤山岩溶国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 鹿寨香桥岩溶国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大化七百弄国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 桂平国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 宜州水上石林地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 浦北五皇山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 都安地下河地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 罗城地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;海南&#34;&gt;海南&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 海口石山火山群国家地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;中南地区&#34;&gt;中南地区&lt;/h2&gt;
+&lt;h3 id=&#34;河南&#34;&gt;河南&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 嵩山地层构造国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 焦作云台山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 内乡宝天曼国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 王屋山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 西峡伏牛山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 嵖岈山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 郑州黄河国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 关山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 洛宁神灵寨国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 洛阳黛眉山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 信阳金岗台国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 小秦岭国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 红旗渠－林虑山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 汝阳恐龙地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 尧山地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;湖北&#34;&gt;湖北&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 长江三峡国家地质公园（重庆）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 神农架国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 武汉木兰山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 郧县恐龙蛋化石群国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 武当山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 大别山（黄冈）国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 五峰地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 咸宁九宫山－温泉地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 施腾龙洞大峡谷地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 长阳清江地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;湖南&#34;&gt;湖南&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 张家界砂岩峰林国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 郴州飞天山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 崀山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 凤凰国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 红石林国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 酒埠江国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 乌龙山国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 湄江国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 平江石牛寨地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 浏阳大围山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 通道万佛山地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安化雪峰湖地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;西南地区&#34;&gt;西南地区&lt;/h2&gt;
+&lt;h3 id=&#34;重庆&#34;&gt;重庆&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 长江三峡国家地质公园（湖北）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 武隆岩溶国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 黔江小南海国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 云阳龙缸国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 万盛国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 綦江国家地质公园&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 酉阳地质公园&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;四川&#34;&gt;四川&lt;/h3&gt;
+&lt;p&gt;自贡恐龙古生物国家地质公园&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>关于</title>
-      <link>//localhost:1313/about/</link>
+      <link>//localhost:51344/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/about/</guid>
+      <guid>//localhost:51344/about/</guid>
       <description>&lt;h2 id=&#34;关于我&#34;&gt;关于我&lt;/h2&gt;
 &lt;p&gt;欢迎来到我的博客。这里记录了我的阅读、学习与思考。&lt;/p&gt;
 &lt;h3 id=&#34;关于本站&#34;&gt;关于本站&lt;/h3&gt;
@@ -64,9 +431,9 @@
     </item>
     <item>
       <title>阅读档案</title>
-      <link>//localhost:1313/reading/</link>
+      <link>//localhost:51344/reading/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/reading/</guid>
+      <guid>//localhost:51344/reading/</guid>
       <description>记录我读过的每一本书</description>
     </item>
   </channel>
