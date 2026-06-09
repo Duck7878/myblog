@@ -4,6 +4,11 @@
     max-width: 100%;
 }
 
+/* 修复有序列表两位数编号被裁剪的问题（PaperMod 默认 padding-inline-start 太窄） */
+.md-content ol {
+    padding-inline-start: 2.5rem;
+}
+
 .post-content.md-content table {
     width: 100%;
     table-layout: fixed;
@@ -81,4 +86,138 @@
     .post-content.md-content td {
         padding: 10px 12px;
     }
+}
+
+/* ========================================
+   主页 - 最近更新区域
+   ======================================== */
+.recent-updates {
+    margin-top: 2rem;
+    padding: 1.5rem 1.8rem;
+    background: var(--entry);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.recent-updates-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    letter-spacing: 0.02em;
+}
+
+.recent-updates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.recent-update-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.recent-update-item:last-child {
+    border-bottom: none;
+}
+
+.recent-update-date {
+    flex-shrink: 0;
+    font-size: 0.82rem;
+    color: var(--secondary);
+    font-family: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+    min-width: 5.5rem;
+}
+
+.recent-update-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.recent-update-link:hover {
+    color: #5b9bd5;
+    text-decoration: underline;
+}
+
+@media (max-width: 680px) {
+    .recent-updates {
+        padding: 1rem 1.2rem;
+        margin-top: 1.5rem;
+    }
+    .recent-update-item {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+    .recent-update-date {
+        min-width: unset;
+    }
+}
+
+/* ========================================
+   字体美化 - 全局排版优化
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
+:root {
+    --font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-heading: 'Noto Serif SC', 'Noto Sans SC', Georgia, 'Times New Roman', serif;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+}
+
+/* 标题字体 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.post-content h1 { font-size: 2rem; }
+.post-content h2 { font-size: 1.6rem; margin-top: 2rem; }
+.post-content h3 { font-size: 1.3rem; margin-top: 1.5rem; }
+
+/* 文章正文内容 */
+.post-content.md-content,
+.entry-content {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    letter-spacing: 0.015em;
+}
+
+/* 代码块字体 */
+code, pre, kbd, samp {
+    font-family: "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono", "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+}
+
+/* 段落间距微调 */
+.post-content p {
+    margin-bottom: 1.2rem;
+}
+
+/* 列表间距 */
+.post-content li {
+    margin-bottom: 0.3rem;
+}
+
+/* blockquote 样式增强 */
+.post-content blockquote {
+    border-left: 4px solid #5b9bd5;
+    background: rgba(91, 155, 213, 0.05);
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    font-style: normal;
+    color: var(--secondary);
 }
