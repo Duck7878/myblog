@@ -3,12 +3,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.org/categories/</loc>
+    <loc>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/</loc>
+    <loc>//localhost:1313/categories/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/</loc>
+    <loc>//localhost:1313/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/reading/</loc>
+    <loc>//localhost:1313/tags/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/%E7%90%86%E8%B4%A2/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/%E8%AF%BB%E4%B9%A6/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/%E8%B4%A2%E5%AF%8C/</loc>
+    <lastmod>2026-02-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/about/</loc>
+  </url><url>
+    <loc>//localhost:1313/search/</loc>
+    <priority>0.1</priority>
+  </url><url>
+    <loc>//localhost:1313/reading/</loc>
   </url>
 </urlset>

@@ -1,9 +1,12 @@
-baseURL = "https://example.org/"
-languageCode = "zh-cn"
-title = "我的博客"
+baseURL = "/"
+locale = "zh-cn"
+title = "Duck Blog"
 theme = "PaperMod"
 paginate = 10
 enableEmoji = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 [menu]
   [[menu.main]]
@@ -12,33 +15,55 @@ enableEmoji = true
     url = "/archives/"
     weight = 10
   [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/categories/"
+    weight = 15
+  [[menu.main]]
     identifier = "reading"
     name = "阅读档案"
     url = "/reading/"
     weight = 20
 
+  [[menu.main]]
+    identifier = "readingnotes"
+    name = "读书笔记"
+    url = "/读书笔记/"
+    weight = 5
+
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 30
+
+  [[menu.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/search/"
+    weight = 40
+
 [params]
+  search = true
+  mainSections = ["posts", "读书笔记"]
   description = "个人博客"
   defaultTheme = "auto"
   disableThemeToggle = false
-  ShowReadingTime = true
+  ShowDate = false
+  ShowReadingTime = false
   ShowShareButtons = false
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
-  ShowWordCount = true
+  ShowWordCount = false
   ShowRssButtonInSectionTermList = true
   ShowAllPagesInArchive = true
   ShowPageNaviator = true
   ShowToc = true
 
   [params.label]
-    text = "我的博客"
+    text = "Duck Blog"
 
   [params.homeInfoParams]
     Title = "欢迎来到我的博客"
     Content = "记录阅读、学习与思考"
-
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/"

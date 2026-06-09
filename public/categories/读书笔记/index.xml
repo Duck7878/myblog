@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Duck Blog</title>
-    <link>//localhost:1313/</link>
-    <description>Recent content on Duck Blog</description>
+    <title>读书笔记 on Duck Blog</title>
+    <link>//localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 读书笔记 on Duck Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 24 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《巴比伦最富有的人》读书笔记</title>
       <link>//localhost:1313/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%B7%B4%E6%AF%94%E4%BC%A6%E6%9C%80%E5%AF%8C%E6%9C%89%E7%9A%84%E4%BA%BA%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
@@ -45,29 +45,6 @@
 &lt;li&gt;不断追求卓越，不断学习优秀的人&lt;/li&gt;
 &lt;li&gt;行动最重要。&lt;/li&gt;
 &lt;/ol&gt;</description>
-    </item>
-    <item>
-      <title>关于</title>
-      <link>//localhost:1313/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/about/</guid>
-      <description>&lt;h2 id=&#34;关于我&#34;&gt;关于我&lt;/h2&gt;
-&lt;p&gt;欢迎来到我的博客。这里记录了我的阅读、学习与思考。&lt;/p&gt;
-&lt;h3 id=&#34;关于本站&#34;&gt;关于本站&lt;/h3&gt;
-&lt;p&gt;这是一个使用 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 和 &lt;a href=&#34;https://github.com/adityatelange/hugo-PaperMod&#34;&gt;PaperMod&lt;/a&gt; 主题搭建的个人博客。&lt;/p&gt;
-&lt;h3 id=&#34;联系方式&#34;&gt;联系方式&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/Duck7878&#34;&gt;Duck7878&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;感谢你的访问！&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>阅读档案</title>
-      <link>//localhost:1313/reading/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/reading/</guid>
-      <description>记录我读过的每一本书</description>
     </item>
   </channel>
 </rss>
