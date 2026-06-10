@@ -1,6 +1,6 @@
 baseURL = "/"
 locale = "zh-cn"
-title = "Duck Blog"
+title = "RealMDFK45"
 theme = "PaperMod"
 paginate = 10
 enableEmoji = true
@@ -63,8 +63,8 @@ enableEmoji = true
   ShowToc = true
 
   [params.label]
-    text = "Duck Blog"
+    text = "RealMDFK45"
 
   [params.homeInfoParams]
-    Title = "欢迎来到我的博客"
-    Content = "记录阅读、学习与思考"
+    Title = "Welcome to RealMDFK45's Blog"
+    Content = "分享即收获 | 利人即利己 | 失败也是成长"
