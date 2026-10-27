@@ -32,7 +32,7 @@ export JAVA_11_HOME=/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Ho
 alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
 alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 
-![image-20240424125506959](assets/image-20240424125506959-20260515210026-nvt44jb.png)
+![image-20240424125506959](image-20240424125506959-20260515210026-nvt44jb.png)
 
 java -version才会输出
 
@@ -44,15 +44,15 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)
 
 删除~/.bash_profile的java配置，zshrc配置如下图所示，java版本输出为java11
 
-![image-20240424130202791](assets/image-20240424130202791-20260515210027-384n25p.png)
+![image-20240424130202791](image-20240424130202791-20260515210027-384n25p.png)
 
 zshrc删除了source ~/.bash_profile，java版本输出为java11
 
-![image-20240424130501881](assets/image-20240424130501881-20260515210027-i46zwxu.png)
+![image-20240424130501881](image-20240424130501881-20260515210027-i46zwxu.png)
 
 jdk8能切换，说明zshrc配置文件是能用的，但为什么设置的export JAVA_HOME=$JAVA_8_HOME没用呢？要~/.zshrc文件和~/.bash_profile文件同时存在export JAVA_HOME=$JAVA_8_HOME才有用？
 
-![image-20240424130729380](assets/image-20240424130729380-20260515210027-nj6sfuh.png)
+![image-20240424130729380](image-20240424130729380-20260515210027-nj6sfuh.png)
 
 结果
 
