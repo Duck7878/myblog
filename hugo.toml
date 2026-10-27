@@ -22,6 +22,12 @@ enableEmoji = true
     weight = 5
 
   [[menu.main]]
+    identifier = "it"
+    name = "IT"
+    url = "/IT/"
+    weight = 7
+
+  [[menu.main]]
     identifier = "archives"
     name = "归档"
     url = "/archives/"
@@ -46,7 +52,7 @@ enableEmoji = true
     weight = 30
 
 [params]
-  mainSections = ["posts", "读书笔记", "游记"]
+  mainSections = ["posts", "读书笔记", "游记", "IT"]
   description = "个人博客"
   defaultTheme = "auto"
   disableThemeToggle = false
