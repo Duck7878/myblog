@@ -1,0 +1,82 @@
+{{- /* 用 jsonify 生成合法 JSON-LD，避免 PaperMod 原模板手写 JSON 导致的非法结构 */ -}}
+{{- $scratch := newScratch -}}
+
+{{- if .IsHome -}}
+  {{- $schema := dict
+    "@context" "https://schema.org"
+    "@type" (title (site.Params.schema.publisherType | default "Organization"))
+    "name" site.Title
+    "url" site.Home.Permalink
+    "description" (site.Params.description | plainify | truncate 180)
+  -}}
+  {{- if eq (site.Params.schema.publisherType) "Person" -}}
+    {{- $schema = merge $schema (dict "image" (site.Params.assets.favicon | default "favicon.ico" | absURL)) -}}
+  {{- else -}}
+    {{- $schema = merge $schema (dict "logo" (site.Params.assets.favicon | default "favicon.ico" | absURL)) -}}
+  {{- end -}}
+  {{- $sameAs := slice -}}
+  {{- if site.Params.schema.sameAs -}}
+    {{- range site.Params.schema.sameAs -}}{{- $sameAs = $sameAs | append (trim . " ") -}}{{- end -}}
+  {{- else -}}
+    {{- range site.Params.SocialIcons -}}{{- $sameAs = $sameAs | append (trim .url " ") -}}{{- end -}}
+  {{- end -}}
+  {{- $schema = merge $schema (dict "sameAs" $sameAs) -}}
+  <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
+
+{{- else if (or .IsPage .IsSection) -}}
+  {{- /* BreadcrumbList */ -}}
+  {{- $items := slice -}}
+  {{- $url := replace .Parent.Permalink (printf "%s" site.Home.Permalink) "" -}}
+  {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
+  {{- $bc_list := split $lang_url "/" -}}
+  {{- $path := "" -}}
+  {{- range $bc_list -}}
+    {{- if ne . "" -}}
+      {{- $path = printf "%s%s/" $path . -}}
+      {{- with site.GetPage $path -}}
+        {{- $items = $items | append (dict "@type" "ListItem" "position" (add 1 (len $items)) "name" .Name "item" .Permalink) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $items = $items | append (dict "@type" "ListItem" "position" (add 1 (len $items)) "name" $.Name "item" $.Permalink) -}}
+  {{- $schema := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items -}}
+  <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
+
+  {{- if .IsPage -}}
+    {{- $desc := "" -}}
+    {{- with .Description -}}{{- $desc = plainify . -}}{{- else -}}{{- $desc = .Summary | plainify -}}{{- end -}}
+    {{- $post := dict
+      "@context" "https://schema.org"
+      "@type" "BlogPosting"
+      "headline" (.Title | plainify)
+      "name" (.Title | plainify)
+      "description" $desc
+      "keywords" (.Params.keywords | default .Params.tags)
+      "articleBody" (.Content | plainify)
+      "wordCount" (string .WordCount)
+      "inLanguage" (.Language.Lang | default "en-us")
+      "datePublished" .PublishDate
+      "dateModified" .Lastmod
+      "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+      "publisher" (dict
+        "@type" (title (site.Params.schema.publisherType | default "Organization"))
+        "name" site.Title
+        "logo" (dict "@type" "ImageObject" "url" (site.Params.assets.favicon | default "favicon.ico" | absURL))
+      )
+    -}}
+    {{- if .Params.cover.image -}}
+      {{- if ne .Params.cover.relative true -}}
+        {{- $post = merge $post (dict "image" (.Params.cover.image | absURL)) -}}
+      {{- else -}}
+        {{- $post = merge $post (dict "image" ((path.Join .RelPermalink .Params.cover.image) | absURL)) -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $images := partial "templates/_funcs/get-page-images" . -}}
+      {{- with index $images 0 -}}
+        {{- $post = merge $post (dict "image" .Permalink) -}}
+      {{- end -}}
+    {{- end -}}
+    <script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+  {{- end -}}
+
+{{- end -}}

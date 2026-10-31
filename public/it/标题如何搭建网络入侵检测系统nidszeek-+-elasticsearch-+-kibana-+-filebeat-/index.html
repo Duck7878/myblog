@@ -1,0 +1,673 @@
+<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ） | RealMDFK45</title><meta name=keywords content="IT"><meta name=description content="标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
+标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
+作者：JeremyLiang/5i双手控球
+创建：2024年10月14日
+更新：
+
+目录：
+⚄ 前言
+
+⚄ 工具简介及作用
+
+	1）Zeek简介及作用
+
+	2）Elasticsearch简介及作用
+
+	3）Kibana简介及作用
+
+	4）Filebeat简介及作用
+
+⚄ 服务器环境
+
+⚄ 搭建测试环境
+
+	5）安装Zeek 7.0.3
+
+	6）安装Elasticsearch 7.17.24
+
+	7）安装Kibana 7.17.24
+
+	8）安装Filebeat 7.17.24
+
+⚄ 调试
+
+⚄ 参考资源
+
+
+⚄ 前言
+网络入侵检测系统（Network Intrusion Detection System，简称NIDS）是一种关键的网络安全工具，它能够实时监控网络流量，检测并报告任何可疑活动或潜在的安全威胁。通过部署NIDS，安全运营人员可以及时发现并响应各种网络攻击，从而增强其整体安全防护能力。在本次教程中，我将使用Zeek捕获和分析网络流量，生成详细的日志记录，再用Filebeat 从 Zeek 生成的日志文件中读取数据，并将其发送到 Elasticsearch，再使用Elasticsearch 存储和索引来自 Filebeat 的日志数据，最后使用Kibana 将 Elasticsearch 中的数据可视化展示，提供直观的监控和分析界面。用户可以通过 Kibana 创建仪表板和警报，实时监控网络活动和威胁。我将详细的写出涵盖从安装到配置的全过程，参[19],因为网上的资料每一项都有如过江之鲫的现成资料可获取，但那是别人的知识，学完并写完，就变成自己的知识，好记性不如烂笔头，认真记录这一次搭建NIDS系统的过程并分享给大家，把经验、教训、猜测、疑问、踩坑点，统统记下来。
+
+⚄ 工具简介及作用
+1）Zeek简介及作用
+简介:Zeek（以前称为Bro）是一个强大的开源网络入侵检测系统（NIDS），它不仅能够检测网络攻击，还能进行详细的网络流量分析。
+作用:
+网络监控: Zeek 可以捕获和分析网络流量，生成详细的日志记录。
+威胁检测: 通过内置的脚本和规则，Zeek 能够检测潜在的安全威胁和异常行为。
+数据收集: 收集各种类型的网络数据，包括HTTP请求、DNS查询、SMTP邮件等。"><meta name=author content><link rel=canonical href=/it/%E6%A0%87%E9%A2%98%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9Fnidszeek-+-elasticsearch-+-kibana-+-filebeat-/><link crossorigin=anonymous href=/assets/css/stylesheet.79bb2cdf846eff5d2cc27ea2bf7d97343192da8ababe2e189e9f53c8f3aaa268.css integrity="sha256-ebss34Ru/10swn6iv32XNDGS2oq6vi4Ynp9TyPOqomg=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/it/%E6%A0%87%E9%A2%98%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9Fnidszeek-+-elasticsearch-+-kibana-+-filebeat-/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="/it/%E6%A0%87%E9%A2%98%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9Fnidszeek-+-elasticsearch-+-kibana-+-filebeat-/"><meta property="og:site_name" content="RealMDFK45"><meta property="og:title" content="标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）"><meta property="og:description" content="标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ） 标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
+作者：JeremyLiang/5i双手控球
+创建：2024年10月14日
+更新：
+目录：
+⚄ 前言 ⚄ 工具简介及作用 1）Zeek简介及作用 2）Elasticsearch简介及作用 3）Kibana简介及作用 4）Filebeat简介及作用 ⚄ 服务器环境 ⚄ 搭建测试环境 5）安装Zeek 7.0.3 6）安装Elasticsearch 7.17.24 7）安装Kibana 7.17.24 8）安装Filebeat 7.17.24 ⚄ 调试 ⚄ 参考资源 ⚄ 前言
+网络入侵检测系统（Network Intrusion Detection System，简称NIDS）是一种关键的网络安全工具，它能够实时监控网络流量，检测并报告任何可疑活动或潜在的安全威胁。通过部署NIDS，安全运营人员可以及时发现并响应各种网络攻击，从而增强其整体安全防护能力。在本次教程中，我将使用Zeek捕获和分析网络流量，生成详细的日志记录，再用Filebeat 从 Zeek 生成的日志文件中读取数据，并将其发送到 Elasticsearch，再使用Elasticsearch 存储和索引来自 Filebeat 的日志数据，最后使用Kibana 将 Elasticsearch 中的数据可视化展示，提供直观的监控和分析界面。用户可以通过 Kibana 创建仪表板和警报，实时监控网络活动和威胁。我将详细的写出涵盖从安装到配置的全过程，参[19],因为网上的资料每一项都有如过江之鲫的现成资料可获取，但那是别人的知识，学完并写完，就变成自己的知识，好记性不如烂笔头，认真记录这一次搭建NIDS系统的过程并分享给大家，把经验、教训、猜测、疑问、踩坑点，统统记下来。
+⚄ 工具简介及作用
+1）Zeek简介及作用
+简介:Zeek（以前称为Bro）是一个强大的开源网络入侵检测系统（NIDS），它不仅能够检测网络攻击，还能进行详细的网络流量分析。 作用: 网络监控: Zeek 可以捕获和分析网络流量，生成详细的日志记录。 威胁检测: 通过内置的脚本和规则，Zeek 能够检测潜在的安全威胁和异常行为。 数据收集: 收集各种类型的网络数据，包括HTTP请求、DNS查询、SMTP邮件等。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="it"><meta property="article:published_time" content="2026-10-29T00:00:00+00:00"><meta property="article:modified_time" content="2026-10-29T00:00:00+00:00"><meta property="article:tag" content="IT"><meta name=twitter:card content="summary"><meta name=twitter:title content="标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）"><meta name=twitter:description content="标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ） 标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
+作者：JeremyLiang/5i双手控球
+创建：2024年10月14日
+更新：
+目录：
+⚄ 前言 ⚄ 工具简介及作用 1）Zeek简介及作用 2）Elasticsearch简介及作用 3）Kibana简介及作用 4）Filebeat简介及作用 ⚄ 服务器环境 ⚄ 搭建测试环境 5）安装Zeek 7.0.3 6）安装Elasticsearch 7.17.24 7）安装Kibana 7.17.24 8）安装Filebeat 7.17.24 ⚄ 调试 ⚄ 参考资源 ⚄ 前言
+网络入侵检测系统（Network Intrusion Detection System，简称NIDS）是一种关键的网络安全工具，它能够实时监控网络流量，检测并报告任何可疑活动或潜在的安全威胁。通过部署NIDS，安全运营人员可以及时发现并响应各种网络攻击，从而增强其整体安全防护能力。在本次教程中，我将使用Zeek捕获和分析网络流量，生成详细的日志记录，再用Filebeat 从 Zeek 生成的日志文件中读取数据，并将其发送到 Elasticsearch，再使用Elasticsearch 存储和索引来自 Filebeat 的日志数据，最后使用Kibana 将 Elasticsearch 中的数据可视化展示，提供直观的监控和分析界面。用户可以通过 Kibana 创建仪表板和警报，实时监控网络活动和威胁。我将详细的写出涵盖从安装到配置的全过程，参[19],因为网上的资料每一项都有如过江之鲫的现成资料可获取，但那是别人的知识，学完并写完，就变成自己的知识，好记性不如烂笔头，认真记录这一次搭建NIDS系统的过程并分享给大家，把经验、教训、猜测、疑问、踩坑点，统统记下来。
+⚄ 工具简介及作用
+1）Zeek简介及作用
+简介:Zeek（以前称为Bro）是一个强大的开源网络入侵检测系统（NIDS），它不仅能够检测网络攻击，还能进行详细的网络流量分析。 作用: 网络监控: Zeek 可以捕获和分析网络流量，生成详细的日志记录。 威胁检测: 通过内置的脚本和规则，Zeek 能够检测潜在的安全威胁和异常行为。 数据收集: 收集各种类型的网络数据，包括HTTP请求、DNS查询、SMTP邮件等。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"/it/","name":"ITs","position":1},{"@type":"ListItem","item":"/it/%E6%A0%87%E9%A2%98%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9Fnidszeek-+-elasticsearch-+-kibana-+-filebeat-/","name":"标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）","position":2}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","articleBody":"标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ） 标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）\n作者：JeremyLiang/5i双手控球\n创建：2024年10月14日\n更新：\n目录：\n⚄ 前言 ⚄ 工具简介及作用 1）Zeek简介及作用 2）Elasticsearch简介及作用 3）Kibana简介及作用 4）Filebeat简介及作用 ⚄ 服务器环境 ⚄ 搭建测试环境 5）安装Zeek 7.0.3 6）安装Elasticsearch 7.17.24 7）安装Kibana 7.17.24 8）安装Filebeat 7.17.24 ⚄ 调试 ⚄ 参考资源 ⚄ 前言\n网络入侵检测系统（Network Intrusion Detection System，简称NIDS）是一种关键的网络安全工具，它能够实时监控网络流量，检测并报告任何可疑活动或潜在的安全威胁。通过部署NIDS，安全运营人员可以及时发现并响应各种网络攻击，从而增强其整体安全防护能力。在本次教程中，我将使用Zeek捕获和分析网络流量，生成详细的日志记录，再用Filebeat 从 Zeek 生成的日志文件中读取数据，并将其发送到 Elasticsearch，再使用Elasticsearch 存储和索引来自 Filebeat 的日志数据，最后使用Kibana 将 Elasticsearch 中的数据可视化展示，提供直观的监控和分析界面。用户可以通过 Kibana 创建仪表板和警报，实时监控网络活动和威胁。我将详细的写出涵盖从安装到配置的全过程，参[19],因为网上的资料每一项都有如过江之鲫的现成资料可获取，但那是别人的知识，学完并写完，就变成自己的知识，好记性不如烂笔头，认真记录这一次搭建NIDS系统的过程并分享给大家，把经验、教训、猜测、疑问、踩坑点，统统记下来。\n⚄ 工具简介及作用\n1）Zeek简介及作用\n简介:Zeek（以前称为Bro）是一个强大的开源网络入侵检测系统（NIDS），它不仅能够检测网络攻击，还能进行详细的网络流量分析。 作用: 网络监控: Zeek 可以捕获和分析网络流量，生成详细的日志记录。 威胁检测: 通过内置的脚本和规则，Zeek 能够检测潜在的安全威胁和异常行为。 数据收集: 收集各种类型的网络数据，包括HTTP请求、DNS查询、SMTP邮件等。\n2）Elasticsearch简介及作用\n简介:Elasticsearch 是一个分布式搜索和分析引擎，基于 Apache Lucene 构建，广泛用于全文搜索、日志分析、实时应用监控等领域。 作用: 全文搜索: 提供高效的全文搜索功能，支持复杂的查询和过滤。用户可以通过简单的API调用进行复杂的搜索操作。 数据存储: 存储大量结构化和非结构化的数据。Elasticsearch 的分布式特性使其能够处理海量数据。 实时分析: 提供实时的数据分析能力，支持聚合、统计等功能。用户可以对数据进行实时的统计和分析。 高可用性和可扩展性: 支持分布式部署，具备高可用性和水平扩展能力。这使得 Elasticsearch 适用于大规模的企业级应用。\n3）Kibana简介及作用\n简介:Kibana 是一个开源的数据可视化工具，专门用于与 Elasticsearch 配合使用，提供直观的数据展示和交互界面。 作用: 数据可视化: 通过图表、仪表板等形式，将 Elasticsearch 中的数据可视化展示。用户可以创建各种图表和仪表板来展示数据。 实时监控: 实时监控系统状态，展示关键指标和趋势。Kibana 提供了丰富的监控功能，帮助用户实时了解系统状态。 日志分析: 提供日志分析功能，帮助用户快速查找和分析日志数据。用户可以通过 Kibana 查看和搜索日志文件。 报告生成: 生成和导出报告，方便分享和存档。Kibana 支持生成各种格式的报告，便于用户分享和存档。\n4）Filebeat简介及作用\n简介:Filebeat 是 Elastic Stack 的一部分，用于收集和转发日志文件数据到 Elasticsearch 或 Logstash。 作用: 日志收集: 从文件系统中读取日志文件，并将其发送到指定的目标。Filebeat 支持多种日志文件格式。 轻量级: 设计为轻量级且资源占用低，适合在生产环境中部署。Filebeat 的资源消耗非常小，不会对系统性能造成影响。 模块化: 支持多种预配置的模块，如 Zeek、Nginx、Syslog 等。用户可以轻松配置 Filebeat 来收集特定类型的日志。 可靠传输: 提供可靠的日志传输机制，确保数据不会丢失。Filebeat 使用持久化队列来保证数据的可靠性。\n⚄ 服务器环境\n$ cat /etc/issue\nUbuntu 24.04.1 LTS \\n \\l\n⚄ 搭建测试环境\n5）安装Zeek 7.0.3\n踩坑点：刚开始我使用的是Amazon Linux 2安装zeek，参[1]，安装方式有3种，Amazon Linux 2没有二进制包，选择了源码编译安装方式，该方式需要安装各种依赖（某些依赖由于Amazon Linux 2的yum包安装不了，只能通过下载源代码编译，编译过程中又缺少依赖，死循环），最后安装完Zeek的依赖之后编译花了大约120分钟，编译时间较久，最后Zeek成功运行，后来换另一台一台机器重新安装Zeek，各种报错、各种需要安装依赖，报错太多，此处不细讲，最后的解决方式是去更换一台能添加软件源并手动安装的方式，参[2],参[3],的方式进行安装。\n$ echo \u0026lsquo;deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/ /\u0026rsquo; | sudo tee /etc/apt/sources.list.d/security:zeek.list $ curl -fsSL https://download.opensuse.org/repositories/security:zeek/xUbuntu_24.04/Release.key | gpg \u0026ndash;dearmor | sudo tee /etc/apt/trusted.gpg.d/security_zeek.gpg \u0026gt; /dev/null $ sudo apt update $ sudo apt install zeek-7.0\n执行过程中如果弹窗询问你是否配置邮箱通知，我选择No configuration\n查看/opt/zeek路径下是否有文件，此处注意（如果使用编译方式安装Zeek，那Zeek路径在/usr/local/zeek，如果使用添加源或者下载二进制包的方式安装Zeek，那Zeek路径在/opt/zeek）\n$ ls /opt/zeek\n将/opt/zeek/bin目录加到PATH环境变量中\n$echo \u0026quot;PATH=$PATH:/opt/zeek/bin\u0026quot; \u0026raquo; /etc/profile\n加载配置文件\n$ source /etc/profile\n输出环境变量查看/opt/zeek/bin是否在环境变量中\n$echo$PATH\n输出Zeek版本\n$ zeek -v\n查看本机网卡\n$ ifconfig\n将网卡设置成混杂模式\n$ ifconfig ensXXXXX promisc\nzeek配置文件配置修改监听网卡\n$ vim /opt/zeek/etc\n修改interface为当前实际网卡\n[zeek]\ntype=standalone\nhost=localhost\nInterface=ensXXXXX\n此处来自官方介绍：在某些情况下，最好以json格式呈现日志，因为json格式更容易解析，如果需要将日志发送到ek日志平台，日志格式必须修改为json格式。\nzeek的配置文件修改日志格式为json格式\n$ vim /opt/zeek/share/zeek/site/local.zeek\n在任意位置处新增以下代码\n@load policy/tuning/json-logs.zeek\n参[4],使用ZeekControl管理Zeek\n启动zeek\n$ zeekctl\n$ deploy\n查看日志目录，可看到已经生成日志\n$ cd /opt/zeek/logs/current\n参[4],notice.log，用来辨认出Zeek认为可能是有趣、奇怪或者恶意的特定活动。在Zeek的语言中，这样的活动被称作 “notice”。\n参[18],https://github.com/jqlang/jq这个工具助于查看生成的json格式日志。\n使用方法\n$ jq . http.log\n筛选固定参数语句\n$ jq -c \u0026lsquo;[.\u0026ldquo;id.orig_h\u0026rdquo;, .\u0026ldquo;query\u0026rdquo;, .\u0026ldquo;answers\u0026rdquo;]\u0026rsquo; dns.log\n6）安装Elasticsearch 7.17.24\n截止至2024年10月11日,elasticsearch和kibana软件7.x最新版本为7.17\n$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.24-linux-x86_64.tar.gz\n$ tar zxvf elasticsearch-7.17.24-linux-x86_64.tar.gz\nelasticsearch 必须使用非root用户运行,创建用户\n$ adduser elasticsearch\n将elasticsearch文件的所有权更改为 \u0026rsquo;elasticsearch\u0026rsquo; 用户\n$ chown -R elasticsearch elasticsearch-7.17.24\n移动到用户的主目录并设置权限\n$ cp -r elasticsearch-7.17.24 /home/elasticsearch/\n$ cd /home/elasticsearch/\n$ chown -R elasticsearch elasticsearch-7.17.24/\n启动elasticsearch\n$ /home/elasticsearch/elasticsearch-7.17.24/bin/elasticsearch\n检测是否启动成功\n$ curl localhost:9200\n出现elasticsearch版本号为7.17.24证明运行成功。\n以上是未授权即可访问，为了增加安全性添加账号密码。\n$ vim /home/elasticsearch/elasticsearch-7.17.24/config/elasticsearch.yml\n任意空白处增加以下代码\nxpack.security.enabled: true\n配置文件修改配置之后访问系统，系统显示访问失败，说明配置密码成功\n$ curl localhost:9200\n设置初始化密码，注意设置初始化密码必须在elasticsearch运行状态下才可运行。\n$ /home/elasticsearch/elasticsearch-7.17.24/bin/elasticsearch-setup-passwords auto\n记录生成的账号密码\n用户名elastic是http://ip:5601的系统账号密码\n用户名kibana是和elasticsearch通讯的账号密码（填写在kibana的配置文件里）\n使用生成的账号密码进行测试是否可用\n$ curl localhost:9200 -u elastic:密码\n7）安装Kibana 7.17.24\n$ wget https://artifacts.elastic.co/downloads/kibana/kibana-7.17.24-linux-x86_64.tar.gz\n$ tar zxvf kibana-7.17.24-linux-x86_64.tar.gz\n$ chown -R elasticsearch kibana-7.17.24-linux-x86_64\n$ cp -r kibana-7.17.24-linux-x86_64 /home/elasticsearch/\n$ cd /home/elasticsearch/\n$ chown -R elasticsearch kibana-7.17.24-linux-x86_64/\n切换到elasticsearch用户\n$ su elasticsearch\n修改kibana配置文件\n$ vim /home/elasticsearch/kibana-7.17.24-linux-x86_64/config/kibana.yml\n配置elasticsearch的账号密码，取消server.port的注释，修改server.host主机：0.0.0.0，127.0.0.1或者localhost外部无法访问，取消elasticsearch.hosts的注释，增加账号密码\n先运行elassticsearch 再运行kibana，访问该服务器对应的5601端口。\n踩坑点：前一天还能正常运行，后一天启动kibana时报错，报错时的配置文件\n# Kibana is served by a back end server. This setting specifies the port to use. server.port: 5601 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values. # The default is \u0026#39;localhost\u0026#39;, which usually means remote machines will not be able to connect. # To allow connections from remote users, set this parameter to a non-loopback address. server.host: \u0026#34;0.0.0.0\u0026#34; # Enables you to specify a path to mount Kibana at if you are running behind a proxy. # Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath # from requests it receives, and to prevent a deprecation warning at startup. # This setting cannot end in a slash. #server.basePath: \u0026#34;\u0026#34; # Specifies whether Kibana should rewrite requests that are prefixed with # `server.basePath` or require that they are rewritten by your reverse proxy. # This setting was effectively always `false` before Kibana 6.3 and will # default to `true` starting in Kibana 7.0. #server.rewriteBasePath: false # Specifies the public URL at which Kibana is available for end users. If # `server.basePath` is configured this URL should end with the same basePath. #server.publicBaseUrl: \u0026#34;\u0026#34; # The maximum payload size in bytes for incoming server requests. #server.maxPayload: 1048576 # The Kibana server\u0026#39;s name. This is used for display purposes. #server.name: \u0026#34;your-hostname\u0026#34; # The URLs of the Elasticsearch instances to use for all your queries. elasticsearch.hosts: [\u0026#34;http://localhost:9200\u0026#34;] # Kibana uses an index in Elasticsearch to store saved searches, visualizations and # dashboards. Kibana creates a new index if the index doesn\u0026#39;t already exist. #kibana.index: \u0026#34;.kibana\u0026#34; # The default application to load. #kibana.defaultAppId: \u0026#34;home\u0026#34; # If your Elasticsearch is protected with basic authentication, these settings provide # the username and password that the Kibana server uses to perform maintenance on the Kibana # index at startup. Your Kibana users still need to authenticate with Elasticsearch, which # is proxied through the Kibana server. elasticsearch.username: \u0026#34;kibana\u0026#34; elasticsearch.password: \u0026#34;\u0026#34; # Kibana can also authenticate to Elasticsearch via \u0026#34;service account tokens\u0026#34;. # If may use this token instead of a username/password. # elasticsearch.serviceAccountToken: \u0026#34;my_token\u0026#34; # Enables SSL and paths to the PEM-format SSL certificate and SSL key files, respectively. # These settings enable SSL for outgoing requests from the Kibana server to the browser. #server.ssl.enabled: false #server.ssl.certificate: /path/to/your/server.crt #server.ssl.key: /path/to/your/server.key # Optional settings that provide the paths to the PEM-format SSL certificate and key files. # These files are used to verify the identity of Kibana to Elasticsearch and are required when # xpack.security.http.ssl.client_authentication in Elasticsearch is set to required. #elasticsearch.ssl.certificate: /path/to/your/client.crt #elasticsearch.ssl.key: /path/to/your/client.key # Optional setting that enables you to specify a path to the PEM file for the certificate # authority for your Elasticsearch instance. #elasticsearch.ssl.certificateAuthorities: [ \u0026#34;/path/to/your/CA.pem\u0026#34; ] # To disregard the validity of SSL certificates, change this setting\u0026#39;s value to \u0026#39;none\u0026#39;. elasticsearch.ssl.verificationMode: none # Time in milliseconds to wait for Elasticsearch to respond to pings. Defaults to the value of # the elasticsearch.requestTimeout setting. #elasticsearch.pingTimeout: 1500 # Time in milliseconds to wait for responses from the back end or Elasticsearch. This value # must be a positive integer. #elasticsearch.requestTimeout: 30000 # List of Kibana client-side headers to send to Elasticsearch. To send *no* client-side # headers, set this value to [] (an empty list). #elasticsearch.requestHeadersWhitelist: [ authorization ] # Header names and values that are sent to Elasticsearch. Any custom headers cannot be overwritten # by client-side headers, regardless of the elasticsearch.requestHeadersWhitelist configuration. #elasticsearch.customHeaders: {} # Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable. #elasticsearch.shardTimeout: 30000 # Logs queries sent to Elasticsearch. Requires logging.verbose set to true. #elasticsearch.logQueries: false # Specifies the path where Kibana creates the process ID file. #pid.file: /run/kibana/kibana.pid # Enables you to specify a file where Kibana stores log output. #logging.dest: stdout # Set the value of this setting to true to suppress all logging output. #logging.silent: false # Set the value of this setting to true to suppress all logging output other than error messages. #logging.quiet: false # Set the value of this setting to true to log all events, including system usage information # and all requests. #logging.verbose: false # Set the interval in milliseconds to sample system and process performance # metrics. Minimum is 100ms. Defaults to 5000. #ops.interval: 5000 # Specifies locale to be used for all localizable strings, dates and number formats. # Supported languages are the following: English - en , by default , Chinese - zh-CN . #i18n.locale: \u0026#34;en\u0026#34; 运行正常kibana.yml配置文件如下，这两个配置文件的区别是\n取消elasticsearch.ssl.verificationMode的注释并且修改为以下\nelasticsearch.ssl.verificationMode: none，参[17],修改之后运行正常\n# Kibana is served by a back end server. This setting specifies the port to use. server.port: 5601 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values. # The default is \u0026#39;localhost\u0026#39;, which usually means remote machines will not be able to connect. # To allow connections from remote users, set this parameter to a non-loopback address. server.host: \u0026#34;0.0.0.0\u0026#34; # Enables you to specify a path to mount Kibana at if you are running behind a proxy. # Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath # from requests it receives, and to prevent a deprecation warning at startup. # This setting cannot end in a slash. #server.basePath: \u0026#34;\u0026#34; # Specifies whether Kibana should rewrite requests that are prefixed with # `server.basePath` or require that they are rewritten by your reverse proxy. # This setting was effectively always `false` before Kibana 6.3 and will # default to `true` starting in Kibana 7.0. #server.rewriteBasePath: false # Specifies the public URL at which Kibana is available for end users. If # `server.basePath` is configured this URL should end with the same basePath. #server.publicBaseUrl: \u0026#34;\u0026#34; # The maximum payload size in bytes for incoming server requests. #server.maxPayload: 1048576 # The Kibana server\u0026#39;s name. This is used for display purposes. #server.name: \u0026#34;your-hostname\u0026#34; # The URLs of the Elasticsearch instances to use for all your queries. elasticsearch.hosts: [\u0026#34;http://localhost:9200\u0026#34;] # Kibana uses an index in Elasticsearch to store saved searches, visualizations and # dashboards. Kibana creates a new index if the index doesn\u0026#39;t already exist. #kibana.index: \u0026#34;.kibana\u0026#34; # The default application to load. #kibana.defaultAppId: \u0026#34;home\u0026#34; # If your Elasticsearch is protected with basic authentication, these settings provide # the username and password that the Kibana server uses to perform maintenance on the Kibana # index at startup. Your Kibana users still need to authenticate with Elasticsearch, which # is proxied through the Kibana server. elasticsearch.username: \u0026#34;kibana\u0026#34; elasticsearch.password: \u0026#34;\u0026#34; # Kibana can also authenticate to Elasticsearch via \u0026#34;service account tokens\u0026#34;. # If may use this token instead of a username/password. # elasticsearch.serviceAccountToken: \u0026#34;my_token\u0026#34; # Enables SSL and paths to the PEM-format SSL certificate and SSL key files, respectively. # These settings enable SSL for outgoing requests from the Kibana server to the browser. #server.ssl.enabled: false #server.ssl.certificate: /path/to/your/server.crt #server.ssl.key: /path/to/your/server.key # Optional settings that provide the paths to the PEM-format SSL certificate and key files. # These files are used to verify the identity of Kibana to Elasticsearch and are required when # xpack.security.http.ssl.client_authentication in Elasticsearch is set to required. #elasticsearch.ssl.certificate: /path/to/your/client.crt #elasticsearch.ssl.key: /path/to/your/client.key # Optional setting that enables you to specify a path to the PEM file for the certificate # authority for your Elasticsearch instance. #elasticsearch.ssl.certificateAuthorities: [ \u0026#34;/path/to/your/CA.pem\u0026#34; ] # To disregard the validity of SSL certificates, change this setting\u0026#39;s value to \u0026#39;none\u0026#39;. elasticsearch.ssl.verificationMode: none # Time in milliseconds to wait for Elasticsearch to respond to pings. Defaults to the value of # the elasticsearch.requestTimeout setting. #elasticsearch.pingTimeout: 1500 # Time in milliseconds to wait for responses from the back end or Elasticsearch. This value # must be a positive integer. #elasticsearch.requestTimeout: 30000 # List of Kibana client-side headers to send to Elasticsearch. To send *no* client-side # headers, set this value to [] (an empty list). #elasticsearch.requestHeadersWhitelist: [ authorization ] # Header names and values that are sent to Elasticsearch. Any custom headers cannot be overwritten # by client-side headers, regardless of the elasticsearch.requestHeadersWhitelist configuration. #elasticsearch.customHeaders: {} # Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable. #elasticsearch.shardTimeout: 30000 # Logs queries sent to Elasticsearch. Requires logging.verbose set to true. #elasticsearch.logQueries: false # Specifies the path where Kibana creates the process ID file. #pid.file: /run/kibana/kibana.pid # Enables you to specify a file where Kibana stores log output. #logging.dest: stdout # Set the value of this setting to true to suppress all logging output. #logging.silent: false # Set the value of this setting to true to suppress all logging output other than error messages. #logging.quiet: false # Set the value of this setting to true to log all events, including system usage information # and all requests. #logging.verbose: false # Set the interval in milliseconds to sample system and process performance # metrics. Minimum is 100ms. Defaults to 5000. #ops.interval: 5000 # Specifies locale to be used for all localizable strings, dates and number formats. # Supported languages are the following: English - en , by default , Chinese - zh-CN . #i18n.locale: \u0026#34;en\u0026#34; http://x.x.x.x:5601登录系统\n8）安装Filebeat 7.17.24\n登录web系统之后，系统主页有一个添加集成,全局搜索Zeek，进入该功能模块，再进入右下角的Zeek Logs功能模块\n安装filebaet，选择Linux的DEB\n$ curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.17.24-amd64.deb\n$ sudo dpkg -i filebeat-7.17.24-amd64.deb\n修改filebeat.yml的配置文件\n$ vim /etc/filebeat/filebeat.yml\n增加zeek日志路径的代码(/opt/zeek/logs/current/*.log),增加Elasticsearch Output的账号密码和取消hosts: [localhost:9200]注释，成功运行配置文件如下\n###################### Filebeat Configuration Example ######################### # This file is an example configuration file highlighting only the most common # options. The filebeat.reference.yml file from the same directory contains all the # supported options with more comments. You can use it as a reference. # # You can find the full configuration reference here: # https://www.elastic.co/guide/en/beats/filebeat/index.html # For more available modules and options, please see the filebeat.reference.yml sample # configuration file. # ============================== Filebeat inputs =============================== filebeat.inputs: # Each - is an input. Most options can be set at the input level, so # you can use different inputs for various configurations. # Below are the input specific configurations. # filestream is an input for collecting log messages from files. - type: filestream # Unique ID among all inputs, an ID is required. id: my-filestream-id # Change to true to enable this input configuration. enabled: false # Paths that should be crawled and fetched. Glob based paths. paths: #- /var/log/*.log - /opt/zeek/logs/current/*.log #- c:\\programdata\\elasticsearch\\logs\\* # Exclude lines. A list of regular expressions to match. It drops the lines that are # matching any regular expression from the list. #exclude_lines: [\u0026#39;^DBG\u0026#39;] # Include lines. A list of regular expressions to match. It exports the lines that are # matching any regular expression from the list. #include_lines: [\u0026#39;^ERR\u0026#39;, \u0026#39;^WARN\u0026#39;] # Exclude files. A list of regular expressions to match. Filebeat drops the files that # are matching any regular expression from the list. By default, no files are dropped. #prospector.scanner.exclude_files: [\u0026#39;.gz$\u0026#39;] # Optional additional fields. These fields can be freely picked # to add additional information to the crawled log files for filtering #fields: # level: debug # review: 1 # ============================== Filebeat modules ============================== filebeat.config.modules: # Glob pattern for configuration loading path: ${path.config}/modules.d/*.yml # Set to true to enable config reloading reload.enabled: false # Period on which files under path should be checked for changes #reload.period: 10s # ======================= Elasticsearch template setting ======================= setup.template.settings: index.number_of_shards: 1 #index.codec: best_compression #_source.enabled: false # ================================== General =================================== # The name of the shipper that publishes the network data. It can be used to group # all the transactions sent by a single shipper in the web interface. #name: # The tags of the shipper are included in their own field with each # transaction published. #tags: [\u0026#34;service-X\u0026#34;, \u0026#34;web-tier\u0026#34;] # Optional fields that you can specify to add additional information to the # output. #fields: # env: staging # ================================= Dashboards ================================= # These settings control loading the sample dashboards to the Kibana index. Loading # the dashboards is disabled by default and can be enabled either by setting the # options here or by using the `setup` command. #setup.dashboards.enabled: false # The URL from where to download the dashboards archive. By default this URL # has a value which is computed based on the Beat name and version. For released # versions, this URL points to the dashboard archive on the artifacts.elastic.co # website. #setup.dashboards.url: # =================================== Kibana =================================== # Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API. # This requires a Kibana endpoint configuration. setup.kibana: # Kibana Host # Scheme and port can be left out and will be set to the default (http and 5601) # In case you specify and additional path, the scheme is required: http://localhost:5601/path # IPv6 addresses should always be defined as: https://[2001:db8::1]:5601 host: \u0026#34;0.0.0.0:5601\u0026#34; # Kibana Space ID # ID of the Kibana Space into which the dashboards should be loaded. By default, # the Default Space will be used. #space.id: # =============================== Elastic Cloud ================================ # These settings simplify using Filebeat with the Elastic Cloud (https://cloud.elastic.co/). # The cloud.id setting overwrites the `output.elasticsearch.hosts` and # `setup.kibana.host` options. # You can find the `cloud.id` in the Elastic Cloud web UI. #cloud.id: # The cloud.auth setting overwrites the `output.elasticsearch.username` and # `output.elasticsearch.password` settings. The format is `\u0026lt;user\u0026gt;:\u0026lt;pass\u0026gt;`. #cloud.auth: # ================================== Outputs =================================== # Configure what output to use when sending the data collected by the beat. # ---------------------------- Elasticsearch Output ---------------------------- output.elasticsearch: # Array of hosts to connect to. hosts: [\u0026#34;localhost:9200\u0026#34;] # Protocol - either `http` (default) or `https`. #protocol: \u0026#34;https\u0026#34; # Authentication credentials - either API key or username/password. #api_key: \u0026#34;id:api_key\u0026#34; username: \u0026#34;elastic\u0026#34; password: \u0026#34;\u0026#34; # ------------------------------ Logstash Output ------------------------------- #output.logstash: # The Logstash hosts #hosts: [\u0026#34;localhost:5044\u0026#34;] # Optional SSL. By default is off. # List of root certificates for HTTPS server verifications #ssl.certificate_authorities: [\u0026#34;/etc/pki/root/ca.pem\u0026#34;] # Certificate for SSL client authentication #ssl.certificate: \u0026#34;/etc/pki/client/cert.pem\u0026#34; # Client Certificate Key #ssl.key: \u0026#34;/etc/pki/client/cert.key\u0026#34; # ================================= Processors ================================= processors: - add_host_metadata: when.not.contains.tags: forwarded - add_cloud_metadata: ~ - add_docker_metadata: ~ - add_kubernetes_metadata: ~ # ================================== Logging =================================== # Sets log level. The default log level is info. # Available log levels are: error, warning, info, debug #logging.level: debug # At debug level, you can selectively enable logging only for some components. # To enable all selectors use [\u0026#34;*\u0026#34;]. Examples of other selectors are \u0026#34;beat\u0026#34;, # \u0026#34;publisher\u0026#34;, \u0026#34;service\u0026#34;. #logging.selectors: [\u0026#34;*\u0026#34;] # ============================= X-Pack Monitoring ============================== # Filebeat can export internal metrics to a central Elasticsearch monitoring # cluster. This requires xpack monitoring to be enabled in Elasticsearch. The # reporting is disabled by default. # Set to true to enable the monitoring reporter. #monitoring.enabled: false # Sets the UUID of the Elasticsearch cluster under which monitoring data for this # Filebeat instance will appear in the Stack Monitoring UI. If output.elasticsearch # is enabled, the UUID is derived from the Elasticsearch cluster referenced by output.elasticsearch. #monitoring.cluster_uuid: # Uncomment to send the metrics to Elasticsearch. Most settings from the # Elasticsearch output are accepted here as well. # Note that the settings should point to your Elasticsearch *monitoring* cluster. # Any setting that is not set is automatically inherited from the Elasticsearch # output configuration, so if you have the Elasticsearch output configured such # that it is pointing to your Elasticsearch monitoring cluster, you can simply # uncomment the following line. #monitoring.elasticsearch: # ============================== Instrumentation =============================== # Instrumentation support for the filebeat. #instrumentation: # Set to true to enable instrumentation of filebeat. #enabled: false # Environment in which filebeat is running on (eg: staging, production, etc.) #environment: \u0026#34;\u0026#34; # APM Server hosts to report instrumentation results to. #hosts: # - http://localhost:8200 # API Key for the APM Server(s). # If api_key is set then secret_token will be ignored. #api_key: # Secret token for the APM Server(s). #secret_token: # ================================= Migration ================================== # This allows to enable 6.7 migration aliases #migration.6_to_7.enabled: true 编辑filebeat的module.d模块下的zeek.yml插件\n以下能运行成功并记录日志的配置文件\n# Module: zeek # Docs: https://www.elastic.co/guide/en/beats/filebeat/7.17/filebeat-module-zeek.html - module: zeek capture_loss: enabled: false connection: enabled: false dce_rpc: enabled: false dhcp: enabled: false dnp3: enabled: false dns: enabled: true var.paths: [\u0026#34;/opt/zeek/logs/current/dns.log\u0026#34;] dpd: enabled: false files: enabled: false ftp: enabled: false http: enabled: true var.paths: [\u0026#34;/opt/zeek/logs/current/http.log\u0026#34;] intel: enabled: false irc: enabled: false kerberos: enabled: false modbus: enabled: false mysql: enabled: false notice: enabled: true var.paths: [\u0026#34;/opt/zeek/logs/current/notice.log\u0026#34;] ntp: enabled: false ntlm: enabled: false ocsp: enabled: false pe: enabled: false radius: enabled: false rdp: enabled: false rfb: enabled: false signature: enabled: false sip: enabled: false smb_cmd: enabled: false smb_files: enabled: false smb_mapping: enabled: false smtp: enabled: false snmp: enabled: false socks: enabled: false ssh: enabled: true var.paths: [\u0026#34;/opt/zeek/logs/current/ssh.log\u0026#34;] ssl: enabled: false stats: enabled: false syslog: enabled: false traceroute: enabled: false tunnel: enabled: false weird: enabled: false x509: enabled: false # Set custom paths for the log files. If left empty, # Filebeat will choose the paths depending on your OS. #var.paths: 踩坑点：如果zeek.yml没设置指定路径，那么filebeat会去检索以前Zeek前身名字Bro的路径\n启动zeek.yml模块\n$ sudo filebeat modules enable zeek\n检查模块是否启动\n$ filebeat modules list\n初始化配置文件\n$ sudo filebeat setup\n启动filebeat,如果启动有日志证明启动成功\n$ filebeat -e\n⚄ 调试\n依次启动zeek、elasticsearch、kibana、filebeat\n踩坑点：filebeat的在systemctl是看不了状态的，只能ps | aux grep filebeat查看\nweb系统Zeek Logs 模块点击check data,查看是否检测到zeek模块\n长期使用必须后台保持运行\n$ nohup 命令 \u0026amp;\n使用流量攻击工具，比如使用fscanssh暴力破解22端口\n在web界面的discover功能模块筛选zeek.yml配置模块的规则，即可看到完整攻击流量日志。\nevent.module: \u0026ldquo;zeek\u0026rdquo;\n经过实际测试，使用998个密码爆破，web界面显示998条日志，证明可完整记录。\n流量机器启动一个http监听，使用dirsearch目录扫描11730个路径进行扫描。\n经过实际测试，web界面显示12018条,说明基本都已经记录。\n以上NIDS的搭建已经完成并运行，在此基础上可以做的事情就更多了，本篇文章在此做抛砖引玉的作用。\n⚄ 参考资源\n[1] https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/install/install.html\n[2] https://github.com/zeek/zeek/wiki/Binary-Packages\n[3] https://software.opensuse.org//download.html?project=security%3Azeek\u0026amp;package=zeek-7.0\n[4] https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/quickstart/\n[5] 【实践】开源IDS网络流量分析与监控系统Zeek对接GrayLog - yuanfan2012 [2023-02-23]\nhttps://cloud.tencent.com/developer/article/2222834 [6] 流量分析的瑞士军刀：Zeek - madneal [2020-05-08]\nhttps://www.freebuf.com/sectool/235587.html [7] zeek集群部署介绍 - safest_place [2023年08月03日]\nhttps://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==\u0026amp;mid=2247486668\u0026amp;idx=1\u0026amp;sn=b2b08554b097e06b33e7266c8402e0df\u0026amp;chksm=c27f7f62f508f67406288e69a03e2edf5258ac2eb00c67250500707e14483fe11ac3507da624\u0026amp;scene=178\u0026amp;cur_album_id=2143956083483181060#rd [8] Zeek使用与实践探索二 - safest_place [2023年11月23日]\nhttps://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==\u0026amp;mid=2247487058\u0026amp;idx=1\u0026amp;sn=b9edd35388e25c090cfb4aabb4e5c9b1\u0026amp;chksm=c27f7dfcf508f4ea3c1e9477bed089c894dab1717ad7d2540446a76740c0d83c46a2a6697d83\u0026amp;scene=178\u0026amp;cur_album_id=2143956083483181060#rd\n[9] Zeek使用与实践探索三 - 最安全的地方 [2024年04月23日]\nhttps://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==\u0026amp;mid=2247487629\u0026amp;idx=1\u0026amp;sn=feed6ba9ec0cad4216fe9673b29a6405\u0026amp;chksm=c27f6323f508ea358512fee313a40dc8882eee9297562f05b10840d492a967eb14e82d6a3633\u0026amp;scene=178\u0026amp;cur_album_id=2143956083483181060#rd\n[10] zeek系列之：流量数据采集流量探针zeek安装部署 - 超超超超子 [2021年08月11日]\nhttps://blog.csdn.net/g5703129/article/details/119596714\n[11] 将 Zeek 与 ELK 栈集成 - Tridev Reddy 译者：LCTT geekpi [2022年06月28日]\nhttps://linux.cn/article-14770-1.html\n[12] ELK的安装及简单使用 - Jason\u0026rsquo;s [2022年08月23日]\nhttp://www.884358.com/elk-install/#an_zhuangLogstash833\n[13] Sending Zeek logs to ELK using Filebeats - Cyber Tool Guardian [2023年09月23日]\nhttps://medium.com/@cybertoolguardian/sending-zeek-logs-to-elk-using-filebeats-c66b4bea35a4\n[14] 在CentOS上安装Elasticsearch和Kibana - demo1234567 [2024年05月-14日]\n[15] 借助 VPC Traffic Mirroring 构建网络入侵检测系统 - AWS Team [2020年07月10日]\nhttps://aws.amazon.com/cn/blogs/china/using-vpc-traffic-mirroring-to-construct-network-intrusion-detection-system-update/\n[16] 基于 Gateway Load Balancer 的一种 VPC 边界流量镜像方案与实现 - AWS Team [2023年10月18日]\nhttps://aws.amazon.com/cn/blogs/china/a-vpc-boundary-traffic-mirroring-solution-and-implementation-based-on-gateway-load-balancer/\n[17] Unable to retrieve version information from Elasticsearch nodes. connect ETIMEDOUT - Stephen Brown [2024年03月27日]\nhttps://discuss.elastic.co/t/error-elasticsearch-service-unable-to-retrieve-version-information-from-elasticsearch-nodes-connect-etimedout/356120/11\n[18] https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/\n[19] HTTPS抓包扯淡 - scz [2023年09月01日]\nhttps://scz.617.cn/network/202309010819.txt\n","dateModified":"2026-10-29T00:00:00Z","datePublished":"2026-10-29T00:00:00Z","description":"标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ） 标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）\n作者：JeremyLiang/5i双手控球\n创建：2024年10月14日\n更新：\n目录：\n⚄ 前言 ⚄ 工具简介及作用 1）Zeek简介及作用 2）Elasticsearch简介及作用 3）Kibana简介及作用 4）Filebeat简介及作用 ⚄ 服务器环境 ⚄ 搭建测试环境 5）安装Zeek 7.0.3 6）安装Elasticsearch 7.17.24 7）安装Kibana 7.17.24 8）安装Filebeat 7.17.24 ⚄ 调试 ⚄ 参考资源 ⚄ 前言\n网络入侵检测系统（Network Intrusion Detection System，简称NIDS）是一种关键的网络安全工具，它能够实时监控网络流量，检测并报告任何可疑活动或潜在的安全威胁。通过部署NIDS，安全运营人员可以及时发现并响应各种网络攻击，从而增强其整体安全防护能力。在本次教程中，我将使用Zeek捕获和分析网络流量，生成详细的日志记录，再用Filebeat 从 Zeek 生成的日志文件中读取数据，并将其发送到 Elasticsearch，再使用Elasticsearch 存储和索引来自 Filebeat 的日志数据，最后使用Kibana 将 Elasticsearch 中的数据可视化展示，提供直观的监控和分析界面。用户可以通过 Kibana 创建仪表板和警报，实时监控网络活动和威胁。我将详细的写出涵盖从安装到配置的全过程，参[19],因为网上的资料每一项都有如过江之鲫的现成资料可获取，但那是别人的知识，学完并写完，就变成自己的知识，好记性不如烂笔头，认真记录这一次搭建NIDS系统的过程并分享给大家，把经验、教训、猜测、疑问、踩坑点，统统记下来。\n⚄ 工具简介及作用\n1）Zeek简介及作用\n简介:Zeek（以前称为Bro）是一个强大的开源网络入侵检测系统（NIDS），它不仅能够检测网络攻击，还能进行详细的网络流量分析。 作用: 网络监控: Zeek 可以捕获和分析网络流量，生成详细的日志记录。 威胁检测: 通过内置的脚本和规则，Zeek 能够检测潜在的安全威胁和异常行为。 数据收集: 收集各种类型的网络数据，包括HTTP请求、DNS查询、SMTP邮件等。\n","headline":"标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）","inLanguage":"en","keywords":["IT"],"mainEntityOfPage":{"@id":"/it/%E6%A0%87%E9%A2%98%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E7%BD%91%E7%BB%9C%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9Fnidszeek-+-elasticsearch-+-kibana-+-filebeat-/","@type":"WebPage"},"name":"标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"/favicon.ico"},"name":"RealMDFK45"},"wordCount":"3305"}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=/ accesskey=h title="RealMDFK45 (Alt + H)">RealMDFK45</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+<a href=/search/ class=search-btn title=搜索 aria-label=Search accesskey=/><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a></div></div><ul id=menu class=menu><li><a href=/%E6%B8%B8%E8%AE%B0/ title=游记><span>游记</span></a></li><li><a href=/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ title=读书笔记><span>读书笔记</span></a></li><li><a href=/it/ title=IT><span>IT</span></a></li><li><a href=/archives/ title=归档><span>归档</span></a></li><li><a href=/categories/ title=分类><span>分类</span></a></li><li><a href=/reading/ title=阅读档案><span>阅读档案</span></a></li><li><a href=/about/ title=关于><span>关于</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/it/>ITs</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）</h1><div class=post-meta></div></header><details class=toc><summary accesskey=c title="(Alt + C)"><span class=title>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e6%a0%87%e9%a2%98%e5%a6%82%e4%bd%95%e6%90%ad%e5%bb%ba%e7%bd%91%e7%bb%9c%e5%85%a5%e4%be%b5%e6%a3%80%e6%b5%8b%e7%b3%bb%e7%bb%9fnidszeek--elasticsearch--kibana--filebeat- aria-label="标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）">标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）</a></li></ul></div></details><div class="post-content md-content"><h1 id=标题如何搭建网络入侵检测系统nidszeek--elasticsearch--kibana--filebeat->标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）<a hidden class=anchor aria-hidden=true href=#标题如何搭建网络入侵检测系统nidszeek--elasticsearch--kibana--filebeat->#</a></h1><p>标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）</p><p>作者：JeremyLiang/5i双手控球</p><p>创建：2024年10月14日</p><p>更新：</p><hr><p>目录：</p><pre><code>⚄ 前言
+
+⚄ 工具简介及作用
+
+	1）Zeek简介及作用
+
+	2）Elasticsearch简介及作用
+
+	3）Kibana简介及作用
+
+	4）Filebeat简介及作用
+
+⚄ 服务器环境
+
+⚄ 搭建测试环境
+
+	5）安装Zeek 7.0.3
+
+	6）安装Elasticsearch 7.17.24
+
+	7）安装Kibana 7.17.24
+
+	8）安装Filebeat 7.17.24
+
+⚄ 调试
+
+⚄ 参考资源
+</code></pre><hr><p>⚄ 前言</p><p>网络入侵检测系统（Network Intrusion Detection System，简称NIDS）是一种关键的网络安全工具，它能够实时监控网络流量，检测并报告任何可疑活动或潜在的安全威胁。通过部署NIDS，安全运营人员可以及时发现并响应各种网络攻击，从而增强其整体安全防护能力。在本次教程中，我将使用Zeek捕获和分析网络流量，生成详细的日志记录，再用Filebeat 从 Zeek 生成的日志文件中读取数据，并将其发送到 Elasticsearch，再使用Elasticsearch 存储和索引来自 Filebeat 的日志数据，最后使用Kibana 将 Elasticsearch 中的数据可视化展示，提供直观的监控和分析界面。用户可以通过 Kibana 创建仪表板和警报，实时监控网络活动和威胁。我将详细的写出涵盖从安装到配置的全过程，参[19],因为网上的资料每一项都有如过江之鲫的现成资料可获取，但那是别人的知识，学完并写完，就变成自己的知识，好记性不如烂笔头，认真记录这一次搭建NIDS系统的过程并分享给大家，把经验、教训、猜测、疑问、踩坑点，统统记下来。</p><hr><p>⚄ 工具简介及作用</p><p>1）Zeek简介及作用</p><p>简介:Zeek（以前称为Bro）是一个强大的开源网络入侵检测系统（NIDS），它不仅能够检测网络攻击，还能进行详细的网络流量分析。
+作用:
+网络监控: Zeek 可以捕获和分析网络流量，生成详细的日志记录。
+威胁检测: 通过内置的脚本和规则，Zeek 能够检测潜在的安全威胁和异常行为。
+数据收集: 收集各种类型的网络数据，包括HTTP请求、DNS查询、SMTP邮件等。</p><p>2）Elasticsearch简介及作用</p><p>简介:Elasticsearch 是一个分布式搜索和分析引擎，基于 Apache Lucene 构建，广泛用于全文搜索、日志分析、实时应用监控等领域。
+作用:
+全文搜索: 提供高效的全文搜索功能，支持复杂的查询和过滤。用户可以通过简单的API调用进行复杂的搜索操作。
+数据存储: 存储大量结构化和非结构化的数据。Elasticsearch 的分布式特性使其能够处理海量数据。
+实时分析: 提供实时的数据分析能力，支持聚合、统计等功能。用户可以对数据进行实时的统计和分析。
+高可用性和可扩展性: 支持分布式部署，具备高可用性和水平扩展能力。这使得 Elasticsearch 适用于大规模的企业级应用。</p><p>3）Kibana简介及作用</p><p>简介:Kibana 是一个开源的数据可视化工具，专门用于与 Elasticsearch 配合使用，提供直观的数据展示和交互界面。
+作用:
+数据可视化: 通过图表、仪表板等形式，将 Elasticsearch 中的数据可视化展示。用户可以创建各种图表和仪表板来展示数据。
+实时监控: 实时监控系统状态，展示关键指标和趋势。Kibana 提供了丰富的监控功能，帮助用户实时了解系统状态。
+日志分析: 提供日志分析功能，帮助用户快速查找和分析日志数据。用户可以通过 Kibana 查看和搜索日志文件。
+报告生成: 生成和导出报告，方便分享和存档。Kibana 支持生成各种格式的报告，便于用户分享和存档。</p><p>4）Filebeat简介及作用</p><p>简介:Filebeat 是 Elastic Stack 的一部分，用于收集和转发日志文件数据到 Elasticsearch 或 Logstash。
+作用:
+日志收集: 从文件系统中读取日志文件，并将其发送到指定的目标。Filebeat 支持多种日志文件格式。
+轻量级: 设计为轻量级且资源占用低，适合在生产环境中部署。Filebeat 的资源消耗非常小，不会对系统性能造成影响。
+模块化: 支持多种预配置的模块，如 Zeek、Nginx、Syslog 等。用户可以轻松配置 Filebeat 来收集特定类型的日志。
+可靠传输: 提供可靠的日志传输机制，确保数据不会丢失。Filebeat 使用持久化队列来保证数据的可靠性。</p><hr><p>⚄ 服务器环境</p><p>$ cat /etc/issue</p><p>Ubuntu 24.04.1 LTS \n \l</p><hr><p>⚄ 搭建测试环境</p><p>5）安装Zeek 7.0.3</p><p>踩坑点：刚开始我使用的是Amazon Linux 2安装zeek，参[1]，安装方式有3种，Amazon Linux 2没有二进制包，选择了源码编译安装方式，该方式需要安装各种依赖（某些依赖由于Amazon Linux 2的yum包安装不了，只能通过下载源代码编译，编译过程中又缺少依赖，死循环），最后安装完Zeek的依赖之后编译花了大约120分钟，编译时间较久，最后Zeek成功运行，后来换另一台一台机器重新安装Zeek，各种报错、各种需要安装依赖，报错太多，此处不细讲，最后的解决方式是去更换一台能添加软件源并手动安装的方式，参[2],参[3],的方式进行安装。</p><p>$ echo &lsquo;deb <a href=http://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/>http://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/</a> /&rsquo; | sudo tee /etc/apt/sources.list.d/security:zeek.list
+$ curl -fsSL <a href=https://download.opensuse.org/repositories/security:zeek/xUbuntu_24.04/Release.key>https://download.opensuse.org/repositories/security:zeek/xUbuntu_24.04/Release.key</a> | gpg &ndash;dearmor | sudo tee /etc/apt/trusted.gpg.d/security_zeek.gpg > /dev/null
+$ sudo apt update
+$ sudo apt install zeek-7.0</p><p>执行过程中如果弹窗询问你是否配置邮箱通知，我选择No configuration</p><p>查看/opt/zeek路径下是否有文件，此处注意（如果使用编译方式安装Zeek，那Zeek路径在/usr/local/zeek，如果使用添加源或者下载二进制包的方式安装Zeek，那Zeek路径在/opt/zeek）</p><p>$ ls /opt/zeek</p><p>将/opt/zeek/bin目录加到PATH环境变量中</p><p>$echo "PATH=$PATH:/opt/zeek/bin" &#187; /etc/profile</p><p>加载配置文件</p><p>$ source /etc/profile</p><p>输出环境变量查看/opt/zeek/bin是否在环境变量中</p><p>$echo$PATH</p><p>输出Zeek版本</p><p>$ zeek -v</p><p>查看本机网卡</p><p>$ ifconfig</p><p>将网卡设置成混杂模式</p><p>$ ifconfig ensXXXXX promisc</p><p>zeek配置文件配置修改监听网卡</p><p>$ vim /opt/zeek/etc</p><p>修改interface为当前实际网卡</p><p>[zeek]</p><p>type=standalone</p><p>host=localhost</p><p>Interface=ensXXXXX</p><p>此处来自官方介绍：在某些情况下，最好以json格式呈现日志，因为json格式更容易解析，如果需要将日志发送到ek日志平台，日志格式必须修改为json格式。</p><p>zeek的配置文件修改日志格式为json格式</p><p>$ vim /opt/zeek/share/zeek/site/local.zeek</p><p>在任意位置处新增以下代码</p><p>@load policy/tuning/json-logs.zeek</p><p>参[4],使用ZeekControl管理Zeek</p><p>启动zeek</p><p>$ zeekctl</p><p>$ deploy</p><p>查看日志目录，可看到已经生成日志</p><p>$ cd /opt/zeek/logs/current</p><p>参[4],notice.log，用来辨认出Zeek认为可能是有趣、奇怪或者恶意的特定活动。在Zeek的语言中，这样的活动被称作 “notice”。</p><p>参[18],https://github.com/jqlang/jq这个工具助于查看生成的json格式日志。</p><p>使用方法</p><p>$ jq . http.log</p><p>筛选固定参数语句</p><p>$ jq -c &lsquo;[.&ldquo;id.orig_h&rdquo;, .&ldquo;query&rdquo;, .&ldquo;answers&rdquo;]&rsquo; dns.log</p><p>6）安装Elasticsearch 7.17.24</p><p>截止至2024年10月11日,elasticsearch和kibana软件7.x最新版本为7.17</p><p>$ wget <a href=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.24-linux-x86_64.tar.gz>https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.24-linux-x86_64.tar.gz</a></p><p>$ tar zxvf elasticsearch-7.17.24-linux-x86_64.tar.gz</p><p>elasticsearch 必须使用非root用户运行,创建用户</p><p>$ adduser elasticsearch</p><p>将elasticsearch文件的所有权更改为 &rsquo;elasticsearch&rsquo; 用户</p><p>$ chown -R elasticsearch elasticsearch-7.17.24</p><p>移动到用户的主目录并设置权限</p><p>$ cp -r elasticsearch-7.17.24 /home/elasticsearch/</p><p>$ cd /home/elasticsearch/</p><p>$ chown -R elasticsearch elasticsearch-7.17.24/</p><p>启动elasticsearch</p><p>$ /home/elasticsearch/elasticsearch-7.17.24/bin/elasticsearch</p><p>检测是否启动成功</p><p>$ curl localhost:9200</p><p>出现elasticsearch版本号为7.17.24证明运行成功。</p><p>以上是未授权即可访问，为了增加安全性添加账号密码。</p><p>$ vim /home/elasticsearch/elasticsearch-7.17.24/config/elasticsearch.yml</p><p>任意空白处增加以下代码</p><p>xpack.security.enabled: true</p><p>配置文件修改配置之后访问系统，系统显示访问失败，说明配置密码成功</p><p>$ curl localhost:9200</p><p>设置初始化密码，注意设置初始化密码必须在elasticsearch运行状态下才可运行。</p><p>$ /home/elasticsearch/elasticsearch-7.17.24/bin/elasticsearch-setup-passwords auto</p><p>记录生成的账号密码</p><p>用户名elastic是http://ip:5601的系统账号密码</p><p>用户名kibana是和elasticsearch通讯的账号密码（填写在kibana的配置文件里）</p><p>使用生成的账号密码进行测试是否可用</p><p>$ curl localhost:9200 -u elastic:密码</p><p>7）安装Kibana 7.17.24</p><p>$ wget <a href=https://artifacts.elastic.co/downloads/kibana/kibana-7.17.24-linux-x86_64.tar.gz>https://artifacts.elastic.co/downloads/kibana/kibana-7.17.24-linux-x86_64.tar.gz</a></p><p>$ tar zxvf kibana-7.17.24-linux-x86_64.tar.gz</p><p>$ chown -R elasticsearch kibana-7.17.24-linux-x86_64</p><p>$ cp -r kibana-7.17.24-linux-x86_64 /home/elasticsearch/</p><p>$ cd /home/elasticsearch/</p><p>$ chown -R elasticsearch kibana-7.17.24-linux-x86_64/</p><p>切换到elasticsearch用户</p><p>$ su elasticsearch</p><p>修改kibana配置文件</p><p>$ vim /home/elasticsearch/kibana-7.17.24-linux-x86_64/config/kibana.yml</p><p>配置elasticsearch的账号密码，取消server.port的注释，修改server.host主机：0.0.0.0，127.0.0.1或者localhost外部无法访问，取消elasticsearch.hosts的注释，增加账号密码</p><p>先运行elassticsearch 再运行kibana，访问该服务器对应的5601端口。</p><p>踩坑点：前一天还能正常运行，后一天启动kibana时报错，报错时的配置文件</p><hr><pre tabindex=0><code># Kibana is served by a back end server. This setting specifies the port to use.
+server.port: 5601
+
+# Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
+# The default is &#39;localhost&#39;, which usually means remote machines will not be able to connect.
+# To allow connections from remote users, set this parameter to a non-loopback address.
+server.host: &#34;0.0.0.0&#34;
+
+# Enables you to specify a path to mount Kibana at if you are running behind a proxy.
+# Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath
+# from requests it receives, and to prevent a deprecation warning at startup.
+# This setting cannot end in a slash.
+#server.basePath: &#34;&#34;
+
+# Specifies whether Kibana should rewrite requests that are prefixed with
+# `server.basePath` or require that they are rewritten by your reverse proxy.
+# This setting was effectively always `false` before Kibana 6.3 and will
+# default to `true` starting in Kibana 7.0.
+#server.rewriteBasePath: false
+
+# Specifies the public URL at which Kibana is available for end users. If
+# `server.basePath` is configured this URL should end with the same basePath.
+#server.publicBaseUrl: &#34;&#34;
+
+# The maximum payload size in bytes for incoming server requests.
+#server.maxPayload: 1048576
+
+# The Kibana server&#39;s name.  This is used for display purposes.
+#server.name: &#34;your-hostname&#34;
+
+# The URLs of the Elasticsearch instances to use for all your queries.
+elasticsearch.hosts: [&#34;http://localhost:9200&#34;]
+
+# Kibana uses an index in Elasticsearch to store saved searches, visualizations and
+# dashboards. Kibana creates a new index if the index doesn&#39;t already exist.
+#kibana.index: &#34;.kibana&#34;
+
+# The default application to load.
+#kibana.defaultAppId: &#34;home&#34;
+
+# If your Elasticsearch is protected with basic authentication, these settings provide
+# the username and password that the Kibana server uses to perform maintenance on the Kibana
+# index at startup. Your Kibana users still need to authenticate with Elasticsearch, which
+# is proxied through the Kibana server.
+elasticsearch.username: &#34;kibana&#34;
+elasticsearch.password: &#34;&#34;
+
+# Kibana can also authenticate to Elasticsearch via &#34;service account tokens&#34;.
+# If may use this token instead of a username/password.
+# elasticsearch.serviceAccountToken: &#34;my_token&#34;
+
+# Enables SSL and paths to the PEM-format SSL certificate and SSL key files, respectively.
+# These settings enable SSL for outgoing requests from the Kibana server to the browser.
+#server.ssl.enabled: false
+#server.ssl.certificate: /path/to/your/server.crt
+#server.ssl.key: /path/to/your/server.key
+
+# Optional settings that provide the paths to the PEM-format SSL certificate and key files.
+# These files are used to verify the identity of Kibana to Elasticsearch and are required when
+# xpack.security.http.ssl.client_authentication in Elasticsearch is set to required.
+#elasticsearch.ssl.certificate: /path/to/your/client.crt
+#elasticsearch.ssl.key: /path/to/your/client.key
+
+# Optional setting that enables you to specify a path to the PEM file for the certificate
+# authority for your Elasticsearch instance.
+#elasticsearch.ssl.certificateAuthorities: [ &#34;/path/to/your/CA.pem&#34; ]
+
+# To disregard the validity of SSL certificates, change this setting&#39;s value to &#39;none&#39;.
+elasticsearch.ssl.verificationMode: none
+
+# Time in milliseconds to wait for Elasticsearch to respond to pings. Defaults to the value of
+# the elasticsearch.requestTimeout setting.
+#elasticsearch.pingTimeout: 1500
+
+# Time in milliseconds to wait for responses from the back end or Elasticsearch. This value
+# must be a positive integer.
+#elasticsearch.requestTimeout: 30000
+
+# List of Kibana client-side headers to send to Elasticsearch. To send *no* client-side
+# headers, set this value to [] (an empty list).
+#elasticsearch.requestHeadersWhitelist: [ authorization ]
+
+# Header names and values that are sent to Elasticsearch. Any custom headers cannot be overwritten
+# by client-side headers, regardless of the elasticsearch.requestHeadersWhitelist configuration.
+#elasticsearch.customHeaders: {}
+
+# Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable.
+#elasticsearch.shardTimeout: 30000
+
+# Logs queries sent to Elasticsearch. Requires logging.verbose set to true.
+#elasticsearch.logQueries: false
+
+# Specifies the path where Kibana creates the process ID file.
+#pid.file: /run/kibana/kibana.pid
+
+# Enables you to specify a file where Kibana stores log output.
+#logging.dest: stdout
+
+# Set the value of this setting to true to suppress all logging output.
+#logging.silent: false
+
+# Set the value of this setting to true to suppress all logging output other than error messages.
+#logging.quiet: false
+
+# Set the value of this setting to true to log all events, including system usage information
+# and all requests.
+#logging.verbose: false
+
+# Set the interval in milliseconds to sample system and process performance
+# metrics. Minimum is 100ms. Defaults to 5000.
+#ops.interval: 5000
+
+# Specifies locale to be used for all localizable strings, dates and number formats.
+# Supported languages are the following: English - en , by default , Chinese - zh-CN .
+#i18n.locale: &#34;en&#34;
+</code></pre><hr><p>运行正常kibana.yml配置文件如下，这两个配置文件的区别是</p><p>取消elasticsearch.ssl.verificationMode的注释并且修改为以下</p><p>elasticsearch.ssl.verificationMode: none，参[17],修改之后运行正常</p><hr><pre tabindex=0><code class=language-kibana.yml配置文件 data-lang=kibana.yml配置文件># Kibana is served by a back end server. This setting specifies the port to use.
+server.port: 5601
+
+# Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
+# The default is &#39;localhost&#39;, which usually means remote machines will not be able to connect.
+# To allow connections from remote users, set this parameter to a non-loopback address.
+server.host: &#34;0.0.0.0&#34;
+
+# Enables you to specify a path to mount Kibana at if you are running behind a proxy.
+# Use the `server.rewriteBasePath` setting to tell Kibana if it should remove the basePath
+# from requests it receives, and to prevent a deprecation warning at startup.
+# This setting cannot end in a slash.
+#server.basePath: &#34;&#34;
+
+# Specifies whether Kibana should rewrite requests that are prefixed with
+# `server.basePath` or require that they are rewritten by your reverse proxy.
+# This setting was effectively always `false` before Kibana 6.3 and will
+# default to `true` starting in Kibana 7.0.
+#server.rewriteBasePath: false
+
+# Specifies the public URL at which Kibana is available for end users. If
+# `server.basePath` is configured this URL should end with the same basePath.
+#server.publicBaseUrl: &#34;&#34;
+
+# The maximum payload size in bytes for incoming server requests.
+#server.maxPayload: 1048576
+
+# The Kibana server&#39;s name.  This is used for display purposes.
+#server.name: &#34;your-hostname&#34;
+
+# The URLs of the Elasticsearch instances to use for all your queries.
+elasticsearch.hosts: [&#34;http://localhost:9200&#34;]
+
+# Kibana uses an index in Elasticsearch to store saved searches, visualizations and
+# dashboards. Kibana creates a new index if the index doesn&#39;t already exist.
+#kibana.index: &#34;.kibana&#34;
+
+# The default application to load.
+#kibana.defaultAppId: &#34;home&#34;
+
+# If your Elasticsearch is protected with basic authentication, these settings provide
+# the username and password that the Kibana server uses to perform maintenance on the Kibana
+# index at startup. Your Kibana users still need to authenticate with Elasticsearch, which
+# is proxied through the Kibana server.
+elasticsearch.username: &#34;kibana&#34;
+elasticsearch.password: &#34;&#34;
+
+# Kibana can also authenticate to Elasticsearch via &#34;service account tokens&#34;.
+# If may use this token instead of a username/password.
+# elasticsearch.serviceAccountToken: &#34;my_token&#34;
+
+# Enables SSL and paths to the PEM-format SSL certificate and SSL key files, respectively.
+# These settings enable SSL for outgoing requests from the Kibana server to the browser.
+#server.ssl.enabled: false
+#server.ssl.certificate: /path/to/your/server.crt
+#server.ssl.key: /path/to/your/server.key
+
+# Optional settings that provide the paths to the PEM-format SSL certificate and key files.
+# These files are used to verify the identity of Kibana to Elasticsearch and are required when
+# xpack.security.http.ssl.client_authentication in Elasticsearch is set to required.
+#elasticsearch.ssl.certificate: /path/to/your/client.crt
+#elasticsearch.ssl.key: /path/to/your/client.key
+
+# Optional setting that enables you to specify a path to the PEM file for the certificate
+# authority for your Elasticsearch instance.
+#elasticsearch.ssl.certificateAuthorities: [ &#34;/path/to/your/CA.pem&#34; ]
+
+# To disregard the validity of SSL certificates, change this setting&#39;s value to &#39;none&#39;.
+elasticsearch.ssl.verificationMode: none
+
+# Time in milliseconds to wait for Elasticsearch to respond to pings. Defaults to the value of
+# the elasticsearch.requestTimeout setting.
+#elasticsearch.pingTimeout: 1500
+
+# Time in milliseconds to wait for responses from the back end or Elasticsearch. This value
+# must be a positive integer.
+#elasticsearch.requestTimeout: 30000
+
+# List of Kibana client-side headers to send to Elasticsearch. To send *no* client-side
+# headers, set this value to [] (an empty list).
+#elasticsearch.requestHeadersWhitelist: [ authorization ]
+
+# Header names and values that are sent to Elasticsearch. Any custom headers cannot be overwritten
+# by client-side headers, regardless of the elasticsearch.requestHeadersWhitelist configuration.
+#elasticsearch.customHeaders: {}
+
+# Time in milliseconds for Elasticsearch to wait for responses from shards. Set to 0 to disable.
+#elasticsearch.shardTimeout: 30000
+
+# Logs queries sent to Elasticsearch. Requires logging.verbose set to true.
+#elasticsearch.logQueries: false
+
+# Specifies the path where Kibana creates the process ID file.
+#pid.file: /run/kibana/kibana.pid
+
+# Enables you to specify a file where Kibana stores log output.
+#logging.dest: stdout
+
+# Set the value of this setting to true to suppress all logging output.
+#logging.silent: false
+
+# Set the value of this setting to true to suppress all logging output other than error messages.
+#logging.quiet: false
+
+# Set the value of this setting to true to log all events, including system usage information
+# and all requests.
+#logging.verbose: false
+
+# Set the interval in milliseconds to sample system and process performance
+# metrics. Minimum is 100ms. Defaults to 5000.
+#ops.interval: 5000
+
+# Specifies locale to be used for all localizable strings, dates and number formats.
+# Supported languages are the following: English - en , by default , Chinese - zh-CN .
+#i18n.locale: &#34;en&#34;
+</code></pre><hr><p><a href=http://x.x.x.x:5601>http://x.x.x.x:5601</a>登录系统</p><p>8）安装Filebeat 7.17.24</p><p>登录web系统之后，系统主页有一个添加集成,全局搜索Zeek，进入该功能模块，再进入右下角的Zeek Logs功能模块</p><p>安装filebaet，选择Linux的DEB</p><p>$ curl -L -O <a href=https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.17.24-amd64.deb>https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.17.24-amd64.deb</a></p><p>$ sudo dpkg -i filebeat-7.17.24-amd64.deb</p><p>修改filebeat.yml的配置文件</p><p>$ vim /etc/filebeat/filebeat.yml</p><p>增加zeek日志路径的代码(/opt/zeek/logs/current/*.log),增加Elasticsearch Output的账号密码和取消hosts: [localhost:9200]注释，成功运行配置文件如下</p><hr><pre tabindex=0><code class=language-filebeat.yml配置文件 data-lang=filebeat.yml配置文件>###################### Filebeat Configuration Example #########################
+
+# This file is an example configuration file highlighting only the most common
+# options. The filebeat.reference.yml file from the same directory contains all the
+# supported options with more comments. You can use it as a reference.
+#
+# You can find the full configuration reference here:
+# https://www.elastic.co/guide/en/beats/filebeat/index.html
+
+# For more available modules and options, please see the filebeat.reference.yml sample
+# configuration file.
+
+# ============================== Filebeat inputs ===============================
+
+filebeat.inputs:
+
+# Each - is an input. Most options can be set at the input level, so
+# you can use different inputs for various configurations.
+# Below are the input specific configurations.
+
+# filestream is an input for collecting log messages from files.
+- type: filestream
+
+  # Unique ID among all inputs, an ID is required.
+  id: my-filestream-id
+
+  # Change to true to enable this input configuration.
+  enabled: false
+
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    #- /var/log/*.log
+    - /opt/zeek/logs/current/*.log
+    #- c:\programdata\elasticsearch\logs\*
+
+  # Exclude lines. A list of regular expressions to match. It drops the lines that are
+  # matching any regular expression from the list.
+  #exclude_lines: [&#39;^DBG&#39;]
+
+  # Include lines. A list of regular expressions to match. It exports the lines that are
+  # matching any regular expression from the list.
+  #include_lines: [&#39;^ERR&#39;, &#39;^WARN&#39;]
+
+  # Exclude files. A list of regular expressions to match. Filebeat drops the files that
+  # are matching any regular expression from the list. By default, no files are dropped.
+  #prospector.scanner.exclude_files: [&#39;.gz$&#39;]
+
+  # Optional additional fields. These fields can be freely picked
+  # to add additional information to the crawled log files for filtering
+  #fields:
+  #  level: debug
+  #  review: 1
+
+# ============================== Filebeat modules ==============================
+
+filebeat.config.modules:
+  # Glob pattern for configuration loading
+  path: ${path.config}/modules.d/*.yml
+
+  # Set to true to enable config reloading
+  reload.enabled: false
+
+  # Period on which files under path should be checked for changes
+  #reload.period: 10s
+
+# ======================= Elasticsearch template setting =======================
+
+setup.template.settings:
+  index.number_of_shards: 1
+  #index.codec: best_compression
+  #_source.enabled: false
+
+
+# ================================== General ===================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+#name:
+
+# The tags of the shipper are included in their own field with each
+# transaction published.
+#tags: [&#34;service-X&#34;, &#34;web-tier&#34;]
+
+# Optional fields that you can specify to add additional information to the
+# output.
+#fields:
+#  env: staging
+
+# ================================= Dashboards =================================
+# These settings control loading the sample dashboards to the Kibana index. Loading
+# the dashboards is disabled by default and can be enabled either by setting the
+# options here or by using the `setup` command.
+#setup.dashboards.enabled: false
+
+# The URL from where to download the dashboards archive. By default this URL
+# has a value which is computed based on the Beat name and version. For released
+# versions, this URL points to the dashboard archive on the artifacts.elastic.co
+# website.
+#setup.dashboards.url:
+
+# =================================== Kibana ===================================
+
+# Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API.
+# This requires a Kibana endpoint configuration.
+setup.kibana:
+
+  # Kibana Host
+  # Scheme and port can be left out and will be set to the default (http and 5601)
+  # In case you specify and additional path, the scheme is required: http://localhost:5601/path
+  # IPv6 addresses should always be defined as: https://[2001:db8::1]:5601
+   host: &#34;0.0.0.0:5601&#34;
+
+  # Kibana Space ID
+  # ID of the Kibana Space into which the dashboards should be loaded. By default,
+  # the Default Space will be used.
+  #space.id:
+
+# =============================== Elastic Cloud ================================
+
+# These settings simplify using Filebeat with the Elastic Cloud (https://cloud.elastic.co/).
+
+# The cloud.id setting overwrites the `output.elasticsearch.hosts` and
+# `setup.kibana.host` options.
+# You can find the `cloud.id` in the Elastic Cloud web UI.
+#cloud.id:
+
+# The cloud.auth setting overwrites the `output.elasticsearch.username` and
+# `output.elasticsearch.password` settings. The format is `&lt;user&gt;:&lt;pass&gt;`.
+#cloud.auth:
+
+# ================================== Outputs ===================================
+
+# Configure what output to use when sending the data collected by the beat.
+
+# ---------------------------- Elasticsearch Output ----------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: [&#34;localhost:9200&#34;]
+
+  # Protocol - either `http` (default) or `https`.
+  #protocol: &#34;https&#34;
+
+  # Authentication credentials - either API key or username/password.
+  #api_key: &#34;id:api_key&#34;
+  username: &#34;elastic&#34;
+  password: &#34;&#34;
+
+# ------------------------------ Logstash Output -------------------------------
+#output.logstash:
+  # The Logstash hosts
+  #hosts: [&#34;localhost:5044&#34;]
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: [&#34;/etc/pki/root/ca.pem&#34;]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: &#34;/etc/pki/client/cert.pem&#34;
+
+  # Client Certificate Key
+  #ssl.key: &#34;/etc/pki/client/cert.key&#34;
+
+# ================================= Processors =================================
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~
+
+# ================================== Logging ===================================
+
+# Sets log level. The default log level is info.
+# Available log levels are: error, warning, info, debug
+#logging.level: debug
+
+# At debug level, you can selectively enable logging only for some components.
+# To enable all selectors use [&#34;*&#34;]. Examples of other selectors are &#34;beat&#34;,
+# &#34;publisher&#34;, &#34;service&#34;.
+#logging.selectors: [&#34;*&#34;]
+
+# ============================= X-Pack Monitoring ==============================
+# Filebeat can export internal metrics to a central Elasticsearch monitoring
+# cluster.  This requires xpack monitoring to be enabled in Elasticsearch.  The
+# reporting is disabled by default.
+
+# Set to true to enable the monitoring reporter.
+#monitoring.enabled: false
+
+# Sets the UUID of the Elasticsearch cluster under which monitoring data for this
+# Filebeat instance will appear in the Stack Monitoring UI. If output.elasticsearch
+# is enabled, the UUID is derived from the Elasticsearch cluster referenced by output.elasticsearch.
+#monitoring.cluster_uuid:
+
+# Uncomment to send the metrics to Elasticsearch. Most settings from the
+# Elasticsearch output are accepted here as well.
+# Note that the settings should point to your Elasticsearch *monitoring* cluster.
+# Any setting that is not set is automatically inherited from the Elasticsearch
+# output configuration, so if you have the Elasticsearch output configured such
+# that it is pointing to your Elasticsearch monitoring cluster, you can simply
+# uncomment the following line.
+#monitoring.elasticsearch:
+
+# ============================== Instrumentation ===============================
+
+# Instrumentation support for the filebeat.
+#instrumentation:
+    # Set to true to enable instrumentation of filebeat.
+    #enabled: false
+
+    # Environment in which filebeat is running on (eg: staging, production, etc.)
+    #environment: &#34;&#34;
+
+    # APM Server hosts to report instrumentation results to.
+    #hosts:
+    #  - http://localhost:8200
+
+    # API Key for the APM Server(s).
+    # If api_key is set then secret_token will be ignored.
+    #api_key:
+
+    # Secret token for the APM Server(s).
+    #secret_token:
+
+
+# ================================= Migration ==================================
+
+# This allows to enable 6.7 migration aliases
+#migration.6_to_7.enabled: true
+</code></pre><hr><p>编辑filebeat的module.d模块下的zeek.yml插件</p><p>以下能运行成功并记录日志的配置文件</p><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-zeek.yml data-lang=zeek.yml><span style=display:flex><span><span style=color:#75715e># Module: zeek</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Docs: https://www.elastic.co/guide/en/beats/filebeat/7.17/filebeat-module-zeek.html</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>- <span style=color:#f92672>module</span>: <span style=color:#ae81ff>zeek</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>capture_loss</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>connection</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dce_rpc</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dhcp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dnp3</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dns</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>var.paths</span>: [<span style=color:#e6db74>&#34;/opt/zeek/logs/current/dns.log&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>dpd</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>files</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ftp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>http</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>var.paths</span>: [<span style=color:#e6db74>&#34;/opt/zeek/logs/current/http.log&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>intel</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>irc</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>kerberos</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>modbus</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>mysql</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>notice</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>var.paths</span>: [<span style=color:#e6db74>&#34;/opt/zeek/logs/current/notice.log&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ntp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ntlm</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ocsp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>pe</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>radius</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rdp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rfb</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>signature</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>sip</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>smb_cmd</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>smb_files</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>smb_mapping</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>smtp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>snmp</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>socks</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ssh</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>var.paths</span>: [<span style=color:#e6db74>&#34;/opt/zeek/logs/current/ssh.log&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ssl</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stats</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>syslog</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>traceroute</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tunnel</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>weird</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>x509</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Set custom paths for the log files. If left empty,</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Filebeat will choose the paths depending on your OS.</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#var.paths:</span>
+</span></span></code></pre></div><hr><p>踩坑点：如果zeek.yml没设置指定路径，那么filebeat会去检索以前Zeek前身名字Bro的路径</p><p>启动zeek.yml模块</p><p>$ sudo filebeat modules enable zeek</p><p>检查模块是否启动</p><p>$ filebeat modules list</p><p>初始化配置文件</p><p>$ sudo filebeat setup</p><p>启动filebeat,如果启动有日志证明启动成功</p><p>$ filebeat -e</p><p>⚄ 调试</p><p>依次启动zeek、elasticsearch、kibana、filebeat</p><p>踩坑点：filebeat的在systemctl是看不了状态的，只能ps | aux grep filebeat查看</p><p>web系统Zeek Logs 模块点击check data,查看是否检测到zeek模块</p><p>长期使用必须后台保持运行</p><p>$ nohup 命令 &</p><p>使用流量攻击工具，比如使用fscanssh暴力破解22端口</p><p>在web界面的discover功能模块筛选zeek.yml配置模块的规则，即可看到完整攻击流量日志。</p><p>event.module: &ldquo;zeek&rdquo;</p><p>经过实际测试，使用998个密码爆破，web界面显示998条日志，证明可完整记录。</p><p>流量机器启动一个http监听，使用dirsearch目录扫描11730个路径进行扫描。</p><p>经过实际测试，web界面显示12018条,说明基本都已经记录。</p><p>以上NIDS的搭建已经完成并运行，在此基础上可以做的事情就更多了，本篇文章在此做抛砖引玉的作用。</p><p>⚄ 参考资源</p><p>[1] <a href=https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/install/install.html>https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/install/install.html</a></p><p>[2] <a href=https://github.com/zeek/zeek/wiki/Binary-Packages>https://github.com/zeek/zeek/wiki/Binary-Packages</a></p><p>[3] <a href="https://software.opensuse.org//download.html?project=security%3Azeek&amp;package=zeek-7.0">https://software.opensuse.org//download.html?project=security%3Azeek&amp;package=zeek-7.0</a></p><p>[4] <a href=https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/quickstart/>https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/quickstart/</a></p><p>[5] 【实践】开源IDS网络流量分析与监控系统Zeek对接GrayLog - yuanfan2012 [2023-02-23]</p><pre><code>https://cloud.tencent.com/developer/article/2222834
+</code></pre><p>[6] 流量分析的瑞士军刀：Zeek - madneal [2020-05-08]</p><pre><code>https://www.freebuf.com/sectool/235587.html
+</code></pre><p>[7] zeek集群部署介绍 - safest_place [2023年08月03日]</p><pre><code>https://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==&amp;mid=2247486668&amp;idx=1&amp;sn=b2b08554b097e06b33e7266c8402e0df&amp;chksm=c27f7f62f508f67406288e69a03e2edf5258ac2eb00c67250500707e14483fe11ac3507da624&amp;scene=178&amp;cur_album_id=2143956083483181060#rd
+</code></pre><p>[8] Zeek使用与实践探索二 - safest_place [2023年11月23日]</p><p><a href="https://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==&amp;mid=2247487058&amp;idx=1&amp;sn=b9edd35388e25c090cfb4aabb4e5c9b1&amp;chksm=c27f7dfcf508f4ea3c1e9477bed089c894dab1717ad7d2540446a76740c0d83c46a2a6697d83&amp;scene=178&amp;cur_album_id=2143956083483181060#rd">https://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==&amp;mid=2247487058&amp;idx=1&amp;sn=b9edd35388e25c090cfb4aabb4e5c9b1&amp;chksm=c27f7dfcf508f4ea3c1e9477bed089c894dab1717ad7d2540446a76740c0d83c46a2a6697d83&amp;scene=178&amp;cur_album_id=2143956083483181060#rd</a></p><p>[9] Zeek使用与实践探索三 - 最安全的地方 [2024年04月23日]</p><p><a href="https://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==&amp;mid=2247487629&amp;idx=1&amp;sn=feed6ba9ec0cad4216fe9673b29a6405&amp;chksm=c27f6323f508ea358512fee313a40dc8882eee9297562f05b10840d492a967eb14e82d6a3633&amp;scene=178&amp;cur_album_id=2143956083483181060#rd">https://mp.weixin.qq.com/s?__biz=MzkzMDE3ODc1Mw==&amp;mid=2247487629&amp;idx=1&amp;sn=feed6ba9ec0cad4216fe9673b29a6405&amp;chksm=c27f6323f508ea358512fee313a40dc8882eee9297562f05b10840d492a967eb14e82d6a3633&amp;scene=178&amp;cur_album_id=2143956083483181060#rd</a></p><p>[10] zeek系列之：流量数据采集流量探针zeek安装部署 - 超超超超子 [2021年08月11日]</p><p><a href=https://blog.csdn.net/g5703129/article/details/119596714>https://blog.csdn.net/g5703129/article/details/119596714</a></p><p>[11] 将 Zeek 与 ELK 栈集成 - Tridev Reddy 译者：LCTT geekpi [2022年06月28日]</p><p><a href=https://linux.cn/article-14770-1.html>https://linux.cn/article-14770-1.html</a></p><p>[12] ELK的安装及简单使用 - Jason&rsquo;s [2022年08月23日]</p><p><a href=http://www.884358.com/elk-install/#an_zhuangLogstash833>http://www.884358.com/elk-install/#an_zhuangLogstash833</a></p><p>[13] Sending Zeek logs to ELK using Filebeats - Cyber Tool Guardian [2023年09月23日]</p><p><a href=https://medium.com/@cybertoolguardian/sending-zeek-logs-to-elk-using-filebeats-c66b4bea35a4>https://medium.com/@cybertoolguardian/sending-zeek-logs-to-elk-using-filebeats-c66b4bea35a4</a></p><p>[14] 在CentOS上安装Elasticsearch和Kibana - demo1234567 [2024年05月-14日]</p><p>[15] 借助 VPC Traffic Mirroring 构建网络入侵检测系统 - AWS Team [2020年07月10日]</p><p><a href=https://aws.amazon.com/cn/blogs/china/using-vpc-traffic-mirroring-to-construct-network-intrusion-detection-system-update/>https://aws.amazon.com/cn/blogs/china/using-vpc-traffic-mirroring-to-construct-network-intrusion-detection-system-update/</a></p><p>[16] 基于 Gateway Load Balancer 的一种 VPC 边界流量镜像方案与实现 - AWS Team [2023年10月18日]</p><p><a href=https://aws.amazon.com/cn/blogs/china/a-vpc-boundary-traffic-mirroring-solution-and-implementation-based-on-gateway-load-balancer/>https://aws.amazon.com/cn/blogs/china/a-vpc-boundary-traffic-mirroring-solution-and-implementation-based-on-gateway-load-balancer/</a></p><p>[17] Unable to retrieve version information from Elasticsearch nodes. connect ETIMEDOUT - Stephen Brown [2024年03月27日]</p><p><a href=https://discuss.elastic.co/t/error-elasticsearch-service-unable-to-retrieve-version-information-from-elasticsearch-nodes-connect-etimedout/356120/11>https://discuss.elastic.co/t/error-elasticsearch-service-unable-to-retrieve-version-information-from-elasticsearch-nodes-connect-etimedout/356120/11</a></p><p>[18] <a href=https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/>https://zeek-docs-cn.readthedocs.io/zh-cn/chinese/</a></p><p>[19] HTTPS抓包扯淡 - scz [2023年09月01日]</p><p><a href=https://scz.617.cn/network/202309010819.txt>https://scz.617.cn/network/202309010819.txt</a></p></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/it/>IT</a></li></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>RealMDFK45</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
