@@ -4,9 +4,9 @@ date: 2026-10-31
 description: ""
 hiddenInHomeList: false
 categories:
-  - IT
+  - 攻防技术
 tags:
-  - IT
+  - 攻防技术
 ---
 
 # MS17-010（永恒之蓝）

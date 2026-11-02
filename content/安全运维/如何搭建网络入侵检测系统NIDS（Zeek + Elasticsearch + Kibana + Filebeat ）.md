@@ -1,15 +1,15 @@
 ---
-title: "标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）"
+title: "如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）"
 date: 2026-10-29
 description: ""
 hiddenInHomeList: false
 categories:
-  - IT
+  - 安全运维
 tags:
-  - IT
+  - 安全运维
 ---
 
-# 标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
+# 如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
 
 标题：如何搭建网络入侵检测系统NIDS（Zeek + Elasticsearch + Kibana + Filebeat ）
 
