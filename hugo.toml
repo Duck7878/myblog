@@ -22,28 +22,52 @@ enableEmoji = true
     weight = 5
 
   [[menu.main]]
+    identifier = "websec"
+    name = "Web安全"
+    url = "/Web安全/"
+    weight = 6
+
+  [[menu.main]]
+    identifier = "offensedefense"
+    name = "攻防技术"
+    url = "/攻防技术/"
+    weight = 7
+
+  [[menu.main]]
+    identifier = "secops"
+    name = "安全运维"
+    url = "/安全运维/"
+    weight = 8
+
+  [[menu.main]]
+    identifier = "incidentresponse"
+    name = "应急响应"
+    url = "/应急响应/"
+    weight = 9
+
+  [[menu.main]]
     identifier = "it"
     name = "IT"
     url = "/IT/"
-    weight = 7
+    weight = 10
 
   [[menu.main]]
     identifier = "archives"
     name = "归档"
     url = "/archives/"
-    weight = 10
+    weight = 15
 
   [[menu.main]]
     identifier = "categories"
     name = "分类"
     url = "/categories/"
-    weight = 15
+    weight = 20
 
   [[menu.main]]
     identifier = "reading"
     name = "阅读档案"
     url = "/reading/"
-    weight = 20
+    weight = 25
 
   [[menu.main]]
     identifier = "about"
@@ -52,7 +76,7 @@ enableEmoji = true
     weight = 30
 
 [params]
-  mainSections = ["posts", "读书笔记", "游记", "IT"]
+  mainSections = ["posts", "读书笔记", "游记", "IT", "Web安全", "攻防技术", "安全运维", "应急响应"]
   description = "个人博客"
   defaultTheme = "auto"
   disableThemeToggle = false
