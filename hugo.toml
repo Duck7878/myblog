@@ -52,12 +52,6 @@ enableEmoji = true
     weight = 10
 
   [[menu.main]]
-    identifier = "archives"
-    name = "归档"
-    url = "/archives/"
-    weight = 15
-
-  [[menu.main]]
     identifier = "categories"
     name = "分类"
     url = "/categories/"
