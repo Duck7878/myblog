@@ -4,6 +4,7 @@ title = "RealMDFK45"
 theme = "PaperMod"
 paginate = 10
 enableEmoji = true
+cleanDestinationDir = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
