@@ -68,13 +68,8 @@
     text-decoration: underline;
 }
 
-.post-content.md-content th:nth-child(4),
-.post-content.md-content td:nth-child(4) {
-    min-width: 200px;
-}
-
-.post-content.md-content th:nth-child(5),
-.post-content.md-content td:nth-child(5) {
+.post-content.md-content th:nth-child(2),
+.post-content.md-content td:nth-child(2) {
     min-width: 120px;
 }
 
